@@ -26,6 +26,7 @@ public class CambioIndexBean {
 
     private Img imagen;
     private CrearArchivo ca = new CrearArchivo();
+    private String texto;
 
     public void obtenerArchivo(FileUploadEvent event) {
         try {
@@ -41,6 +42,21 @@ public class CambioIndexBean {
         }
     }
 
+    
+    public StreamedContent getImage() throws IOException {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
+            return new DefaultStreamedContent();
+        }
+        else {
+            // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
+            String filename = context.getExternalContext().getRequestParameterMap().get("filename");
+            return new DefaultStreamedContent(new FileInputStream(new File("/C:/NPC/", filename)));
+        }
+    }
+    
     public Img getImagen() {
         return imagen;
     }
@@ -57,17 +73,12 @@ public class CambioIndexBean {
         this.ca = ca;
     }
 
-    public StreamedContent getImage() throws IOException {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            // So, we're rendering the view. Return a stub StreamedContent so that it will generate right URL.
-            return new DefaultStreamedContent();
-        }
-        else {
-            // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
-            String filename = context.getExternalContext().getRequestParameterMap().get("filename");
-            return new DefaultStreamedContent(new FileInputStream(new File("/C:/NPC/", filename)));
-        }
+    public String getTexto() {
+        return texto;
     }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+    
 }
