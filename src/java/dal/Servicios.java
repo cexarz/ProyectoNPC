@@ -13,4 +13,14 @@ package dal;
 public class Servicios {
     public static String ruta = "C:/NPC/";
     
+    public static String ObtenerTextoIndex() throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.ObtenerTextoIndex();
+    }
+    
+    public static boolean ActualizarTextoIndex(String texto) throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.ActualizarTextoIndex(texto);
+    }
+    
 }
