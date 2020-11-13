@@ -76,6 +76,3 @@ public class CambioIndexBean {
     
 }
 
-
-Hola
-Hola mi amorcito que tal como está? Te amo <3
