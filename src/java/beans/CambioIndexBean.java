@@ -56,7 +56,9 @@ public class CambioIndexBean {
             return new DefaultStreamedContent(new FileInputStream(new File("/C:/NPC/", filename)));
         }
     }
-    
+
+
+        
     public Img getImagen() {
         return imagen;
     }
@@ -75,4 +77,3 @@ public class CambioIndexBean {
 
     
 }
-
