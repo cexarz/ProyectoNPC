@@ -1,18 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./Plantillas/usuarios.xhtml">
-
-    <ui:define name="top">
-        top
-    </ui:define>
+                template="./Plantillas/usuarios.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        content
-    </ui:define>
+        <h:form>
+            <p:outputLabel value="Cambiar imagen index "></p:outputLabel>
+            <p:panelGrid  columns="1" columnClasses="ui-grid-col-12" styleClass="ui-panelgrid-blank text-left" >
+                <p:fileUpload fileUploadListener="#{CambioIndexB.obtenerArchivo}" mode="advanced" auto="true" label="Seleccione un archivo" />
+            </p:panelGrid>
+        </h:form>
 
-    <ui:define name="bottom">
-        bottom
-    </ui:define>
+        <h:form>
+            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" styleClass="ui-panelgrid-blank text-left">
+                <p:outputLabel value="Insertar texto"></p:outputLabel>
+                <p:inputTextarea value="#{CambioIndexB.textoNuevo}"></p:inputTextarea>
+                <p:commandButton value="Guardar" actionListener="#{CambioIndexB.ActualizarTexto}"/> 
+            </p:panelGrid>
 
+        </h:form>
+    </ui:define>
 </ui:composition>
