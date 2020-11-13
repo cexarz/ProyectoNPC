@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <h:form>
-                <p:outputLabel value="Cambiar imagen index :v"></p:outputLabel>
+                <p:outputLabel value="Cambiar imagen index "></p:outputLabel>
                 <p:panelGrid  columns="1" columnClasses="ui-grid-col-12" styleClass="ui-panelgrid-blank text-left" >
                     <p:fileUpload fileUploadListener="#{CambioIndexB.obtenerArchivo}" mode="advanced" auto="true" label="Seleccione un archivo" />
                 </p:panelGrid>
@@ -15,6 +15,7 @@
 
         <h:form>
                 <p:panelGrid columns="1" columnClasses="ui-grid-col-12" styleClass="ui-panelgrid-blank text-left">
+                    <p:outputLabel value="Insertar texto"></p:outputLabel>
                     <p:inputTextarea value="#{CambioIndexB.textoNuevo}"></p:inputTextarea>
                     <p:commandButton value="Guardar" actionListener="#{CambioIndexB.ActualizarTexto}"/> 
                 </p:panelGrid>
