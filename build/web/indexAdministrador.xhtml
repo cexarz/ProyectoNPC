@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./Plantillas/PlantillaAdministrador.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <p:outputLabel value="Cambiar imagen index :v"></p:outputLabel>
+        <h:form id="formAdministrador" class="administrador">
+            <p:panelGrid id="paneladjunto"  columns="1" columnClasses="ui-grid-col-12" styleClass="ui-panelgrid-blank text-left" >
+                <p:fileUpload fileUploadListener="#{CambioIndexB.obtenerArchivo}" mode="advanced" auto="true" label="Seleccione un archivo" />
+            </p:panelGrid>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
