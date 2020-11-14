@@ -40,7 +40,7 @@ public class CambioIndexBean {
             imagen.setInputstream(event.getFile().getInputstream());
             imagen.setTamano(event.getFile().getSize());
 
-            ca.creararchivos(imagen);
+            ca.crearArchivoImagenIndex(imagen);
         } catch (Exception e) {
             System.err.println("Error al obtener el archivo " + e.toString());
         }

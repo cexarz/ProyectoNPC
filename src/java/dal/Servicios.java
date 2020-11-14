@@ -6,6 +6,9 @@
 
 package dal;
 
+import bl.Producto;
+import java.sql.Connection;
+
 /**
  *
  * @author ferpm
@@ -21,6 +24,11 @@ public class Servicios {
     public static boolean ActualizarTextoIndex(String texto) throws Exception {
         InformacionDal info = new InformacionDal();
         return info.ActualizarTextoIndex(texto);
+    }
+    
+    public static boolean AgregarProducto(Producto producto) throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.AgregarProducto(producto);
     }
     
 }

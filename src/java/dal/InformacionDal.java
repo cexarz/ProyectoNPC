@@ -1,5 +1,6 @@
 package dal;
 
+import bl.Producto;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -47,6 +48,29 @@ public class InformacionDal {
             csw.CerrarConexion();
         }
         return exito;
+    }
+    
+    public boolean AgregarProducto(Producto producto) throws Exception{
+        boolean existe = false;
+        try {
+            Connection cnx = csw.ObtenerConexion();
+            CallableStatement cs = null;
+            cs = cnx.prepareCall("{ call AgregarProducto (?,?,?,?,?,?,?)) }");
+            cs.setString(1, producto.getCodigo().trim());
+            cs.setString(2, producto.getNombre().trim());
+            cs.setInt(3, producto.getId_Categoria());
+            cs.setInt(4, producto.getStock());
+            cs.setString(5, producto.getDescripcion().trim());
+            cs.setFloat(6, producto.getPrecio());
+            cs.setString(7, producto.getImagen());
+            cs.execute();
+            existe = true;
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return existe;
     }
     
 }
