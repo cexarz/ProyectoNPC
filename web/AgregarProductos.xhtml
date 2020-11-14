@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./Plantillas/PlantillaAdministrador.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h:form id="formlogin" class="login">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-2 ui-lg-3"></div>
+                <div class="ui-g-12 ui-md-8  ui-lg-6">
+
+                    <p:panel id="panel">
+                        <div class="ui-fluid ">
+                            <p:panelGrid  columns="1" styleClass="ui-panelgrid-blank" style="text-align: center" >
+                                <h3 class="text-white">Agregar productos</h3>
+
+                                <p:outputLabel value="Código"></p:outputLabel>
+                                <p:inputText  value="#{productosB.producto.codigo}"  required="true"/>                                                                  
+                                <p:outputLabel value="Nombre"></p:outputLabel>
+                                <p:inputText  value="#{productosB.producto.nombre}"  required="true"/>  
+                                <p:outputLabel value="Categoría"></p:outputLabel>
+                                <p:selectOneMenu  value="#{productosB.producto.id_Categoria}" >     
+                                    <f:selectItem  itemLabel="Impresora" itemValue="1" /> 
+                                    <f:selectItem  itemLabel="Computadoras" itemValue="2" /> 
+                                    <f:selectItem  itemLabel="Cámaras" itemValue="3" />
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Stock"></p:outputLabel>
+                                <p:inputText  value="#{productosB.producto.stock}"  required="true"/>  
+                                <p:outputLabel value="Descripción"></p:outputLabel>
+                                <p:inputTextarea  value="#{productosB.producto.descripcion}"  required="true"/>  
+                                <p:outputLabel value="Precio"></p:outputLabel>
+                                <p:inputText  value="#{productosB.producto.precio}"  required="true"/>  
+                                <p:outputLabel value="Imagen"></p:outputLabel>
+                                <p:fileUpload fileUploadListener="#{productosB.producto.imagen}" mode="advanced" auto="true"  />
+
+
+
+                            </p:panelGrid>
+                        </div>
+                    </p:panel>                    
+                </div>
+                <div class="ui-g-12 ui-md-2  ui-lg-3"></div>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
