@@ -3,6 +3,8 @@ package beans;
 import bl.CrearArchivo;
 import bl.Img;
 import bl.Producto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
@@ -15,9 +17,17 @@ public class ProductosBean {
     private Producto producto;
     private Img imagen;
     private CrearArchivo ca = new CrearArchivo();
+    private List<Img> listaImagenes = new ArrayList<>();
     
     public void AgregarProducto(){
-        
+        producto = new Producto();
+        producto.getCodigo();
+        producto.getNombre();
+        producto.getId_Categoria();
+        producto.getStock();
+        producto.getDescripcion();
+        producto.getPrecio();
+        producto.getImagen();
         ca.crearArchivoProductos(imagen,producto);
     }
     
