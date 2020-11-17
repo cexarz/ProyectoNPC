@@ -36,10 +36,9 @@
                                 <p:outputLabel value="Precio"></p:outputLabel>
                                 <p:inputText  value="#{productosB.producto.precio}"  required="true"/>  
                                 <p:outputLabel value="Imagen"></p:outputLabel>
-                                <p:fileUpload fileUploadListener="#{productosB.obtenerImagenProducto}" mode="advanced" auto="true" label="Seleccione un archivo" />
+                                
 
-
-
+                                <p:commandButton id="enviar" value="Enviar" actionListener="#{productosB.AgregarProducto}"/> 
                             </p:panelGrid>
                         </div>
                     </p:panel>                    

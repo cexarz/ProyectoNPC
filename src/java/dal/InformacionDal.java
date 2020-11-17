@@ -55,7 +55,7 @@ public class InformacionDal {
         try {
             Connection cnx = csw.ObtenerConexion();
             CallableStatement cs = null;
-            cs = cnx.prepareCall("{ call AgregarProducto (?,?,?,?,?,?,?)) }");
+            cs = cnx.prepareCall("{ call AgregarProducto (?,?,?,?,?,?,?) }");
             cs.setString(1, producto.getCodigo().trim());
             cs.setString(2, producto.getNombre().trim());
             cs.setInt(3, producto.getId_Categoria());
