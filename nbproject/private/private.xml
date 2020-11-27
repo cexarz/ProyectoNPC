@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ferpm/Desktop/ProyectoNPC/src/java/bl/CrearArchivo.java</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/indexAdministrador.xhtml</file>
+            <file>file:/C:/NPC/ProyectoNPC/src/java/beans/ProductosBean.java</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/AgregarProductos.xhtml</file>
+            <file>file:/C:/NPC/ProyectoNPC/src/java/beans/CambioIndexBean.java</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/index.xhtml</file>
         </group>
     </open-files>
 </project-private>
