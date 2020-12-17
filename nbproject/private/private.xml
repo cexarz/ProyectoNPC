@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/NPC/ProyectoNPC/web/indexAdministrador.xhtml</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/resources/css/default.css</file>
             <file>file:/C:/NPC/ProyectoNPC/src/java/beans/ProductosBean.java</file>
-            <file>file:/C:/NPC/ProyectoNPC/web/AgregarProductos.xhtml</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/Contactenos.xhtml</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/resources/css/cssLayout.css</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/Plantillas/usuarios.xhtml</file>
             <file>file:/C:/NPC/ProyectoNPC/src/java/beans/CambioIndexBean.java</file>
-            <file>file:/C:/NPC/ProyectoNPC/web/index.xhtml</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/escritorio.xhtml</file>
+            <file>file:/C:/NPC/ProyectoNPC/web/Plantillas/PlantillaAdministrador.xhtml</file>
         </group>
     </open-files>
 </project-private>
