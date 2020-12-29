@@ -33,10 +33,8 @@ public class Crearcorreo {
         String asunto = new String(saludo() + " Estimado(a): " + parametros[0] +"<br><br>"
                 + "Reciba un cordial saludo de parte de NPC Technology, <br><br>"
                 + "Su solicitud de contáctenos ha sido enviada." + "<br>"
-                + "Pronto el poderosísimo NPC le responderá"  +"<br><br>"
-                + "Salu2" + "<br>"
-                + "TE AMO VAMPIRINA" + "<br>"
-                + "Por favor no responda este correo joputa <br>");
+                + "Le responderemos su solicitud lo más pronto posible."  +"<br><br>"
+                + "Por favor no responda este correo.  <br>");
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
@@ -51,13 +49,11 @@ public class Crearcorreo {
     private String DetalleCorreoNpc(String[] parametros) throws Exception {
         String detalle = "";
 
-        String asunto = new String("Holap poderosísimo NPC, novio de la poderosísima Vampirina, <br><br>"
-                + "Un emoxito cliente kiere contactar con usted" + "<br>"
-                + "Respondale rapidin para que no se enoje"  +"<br><br>"
-                + "el clientecito necito y tontito "+ parametros[0] +"<br><br>"
-                + "con el correo "+ parametros[1] +"<br><br>"
-                +"le escribio lo siguiente jeje "+ parametros[2] +"<br><br>"
-                + "Salu2 y me saludas a Vampi" + "<br>");
+        String asunto = new String("Un cliente quiere ponerse en contacto" + "<br>"
+                + "Favor responder lo más antes posible."  +"<br><br>"
+                + "el cliente:" + parametros[0] +"<br><br>"
+                + "con el correo: " + parametros[1] +"<br><br>"
+                +"le escribio lo siguiente: "+ parametros[2]);
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }

@@ -14,7 +14,7 @@
                     <p:outputLabel for="Nombre" value="Nombre" /> &nbsp;
                     <p:inputText id="Nombre" placeholder="Nombre" value="#{ContactenosB.datosCon.nombre}" />
                 </div>
-                    <div class="p-field">
+                <div class="p-field">
                     <p:outputLabel for="Correo" value="Correo" /> &nbsp; &nbsp;
                     <p:inputText id="Correo" placeholder="Correo" value="#{ContactenosB.datosCon.correo}" />
                 </div>
@@ -23,8 +23,7 @@
                              value="#{ContactenosB.datosCon.descripcion}" />
             <br />
             <h:outputText id="display" /><br></br><br></br>
-            <p:commandButton value="Enviar"  actionListener="#{ContactenosB.enviarCorreo}" />
+            <p:commandButton value="Enviar"  actionListener="#{ContactenosB.enviarCorreo}" /> 
         </h:form>
     </ui:define>
-
 </ui:composition>
