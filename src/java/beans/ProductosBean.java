@@ -1,6 +1,7 @@
 package beans;
 
 import bl.CrearArchivo;
+import bl.ImagenProducto;
 import bl.Img;
 import bl.Producto;
 import dal.Servicios;
@@ -23,9 +24,9 @@ import org.primefaces.model.StreamedContent;
 public class ProductosBean {
     private int categoria = 0;
     private Producto producto = new Producto();
-    private Img imagen;
+    private ImagenProducto imagen;
     private CrearArchivo ca = new CrearArchivo();
-    private List<Img> listaImagenes = new ArrayList<>();
+    private List<ImagenProducto> listaImagenes = new ArrayList<>();
     
     public void AgregarProducto() throws Exception{
         
@@ -35,24 +36,37 @@ public class ProductosBean {
         producto.getStock();
         producto.getDescripcion();
         producto.getPrecio();
-        producto.setImagen("");
         Servicios.AgregarProducto(producto);
+        int ultimoProducto = Servicios.TomarUltimoProducto();
+        if (listaImagenes != null) {
+                    for (int i = 0; i < listaImagenes.size(); i++) {
+                        Servicios.AgregarImagenProducto(listaImagenes.get(i).getImagen(), ultimoProducto);
+                        listaImagenes.get(i).setIdProducto(ultimoProducto);
+                        ca.crearArchivoProducto(listaImagenes.get(i), producto.getId_Categoria());
+                    }
+                }
         
     }
     
-      public void obtenerImagenProducto(FileUploadEvent event) {
+    public void obtenerImagenProducto(FileUploadEvent event) {
         try {
-            imagen = new Img();
-            imagen.setImagen("imagen.png");
+            imagen = new ImagenProducto();
+            imagen.setImagen(event.getFile().getFileName());
             imagen.setContenttype(event.getFile().getContentType());
             imagen.setInputstream(event.getFile().getInputstream());
             imagen.setTamano(event.getFile().getSize());
+            if (producto.getId_Categoria() == 1) {
+                imagen.setCategoria("Impresora");
+            } else if (producto.getId_Categoria() == 2) {
+                imagen.setCategoria("Computadoras");
+            }//Aqui ponga los else if de acuerdo a las demás categorias que faltan
+            listaImagenes.add(imagen);
 
-            ca.crearArchivoProductos(imagen,producto);
         } catch (Exception e) {
             System.err.println("Error al obtener el archivo " + e.toString());
         }
     }
+
      public StreamedContent getImage() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -97,14 +111,21 @@ public class ProductosBean {
         this.producto = producto;
     }
 
-    public Img getImagen() {
+    public ImagenProducto getImagen() {
         return imagen;
     }
 
-    public void setImagen(Img imagen) {
+    public void setImagen(ImagenProducto imagen) {
         this.imagen = imagen;
     }
-    
+
+    public List<ImagenProducto> getListaImagenes() {
+        return listaImagenes;
+    }
+
+    public void setListaImagenes(List<ImagenProducto> listaImagenes) {
+        this.listaImagenes = listaImagenes;
+    }
 
 
     public CrearArchivo getCa() {

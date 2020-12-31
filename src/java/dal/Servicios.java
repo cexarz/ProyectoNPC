@@ -15,6 +15,7 @@ import java.sql.Connection;
  */
 public class Servicios {
     public static String ruta = "C:/NPC/";
+    public static String rutaProductos = "C:/NPC/Productos";
     
     public static String ObtenerTextoIndex() throws Exception {
         InformacionDal info = new InformacionDal();
@@ -29,6 +30,16 @@ public class Servicios {
     public static boolean AgregarProducto(Producto producto) throws Exception {
         InformacionDal info = new InformacionDal();
         return info.AgregarProducto(producto);
+    }
+    
+    public static void AgregarImagenProducto(String imagen, int idProducto) throws Exception {
+        InformacionDal info = new InformacionDal();
+        info.AgregarImagenProducto(imagen, idProducto);
+    }
+    
+    public static int TomarUltimoProducto() throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.TomarUltimoProducto();
     }
     
 }

@@ -55,14 +55,13 @@ public class InformacionDal {
         try {
             Connection cnx = csw.ObtenerConexion();
             CallableStatement cs = null;
-            cs = cnx.prepareCall("{ call AgregarProducto (?,?,?,?,?,?,?) }");
+            cs = cnx.prepareCall("{ call AgregarProducto (?,?,?,?,?,?) }");
             cs.setString(1, producto.getCodigo().trim());
             cs.setString(2, producto.getNombre().trim());
             cs.setInt(3, producto.getId_Categoria());
             cs.setInt(4, producto.getStock());
             cs.setString(5, producto.getDescripcion().trim());
             cs.setFloat(6, producto.getPrecio());
-            cs.setString(7, producto.getImagen());
             cs.execute();
             existe = true;
         } catch (Exception e) {
@@ -73,4 +72,39 @@ public class InformacionDal {
         return existe;
     }
     
+    public void AgregarImagenProducto(String imagen, int idProducto) throws Exception {
+        try {
+            Connection cnx = csw.ObtenerConexion();
+            CallableStatement cs = null;
+            cs = cnx.prepareCall("{ call AgregarImagenProducto (?,?) }");
+            cs.setString(1, imagen.trim());
+            cs.setInt(2, idProducto);
+            cs.execute();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+    }
+    
+    public int TomarUltimoProducto() throws Exception {
+        int ultimaSolicitud = 0;
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call TomarUltimoProducto }");
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                ultimaSolicitud = rs.getInt(1);
+            }
+            rs.close();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return ultimaSolicitud;
+    }
 }
