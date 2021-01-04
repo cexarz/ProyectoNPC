@@ -24,8 +24,12 @@
                                 <p:selectOneMenu  value="#{productosB.producto.id_Categoria}" >  
                                     <f:selectItem  itemLabel="Seleccione una categoría" itemValue="#{null}" /> 
                                     <f:selectItem  itemLabel="Impresora" itemValue="1" /> 
-                                    <f:selectItem  itemLabel="Computadoras" itemValue="2" /> 
-                                    <f:selectItem  itemLabel="Cámaras" itemValue="3" />
+                                    <f:selectItem  itemLabel="Escritorio" itemValue="2" /> 
+                                    <f:selectItem  itemLabel="Portátiles" itemValue="3" />
+                                    <f:selectItem  itemLabel="Cámaras" itemValue="4" />
+                                    <f:selectItem  itemLabel="CCTV" itemValue="5" />
+                                    <f:selectItem  itemLabel="Protectores de electricidad" itemValue="6" />
+                                    <f:selectItem  itemLabel="Oficina" itemValue="7" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Stock"></p:outputLabel>
                                 <p:inputText  value="#{productosB.producto.stock}"  required="true"/>  

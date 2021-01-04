@@ -8,6 +8,8 @@ package dal;
 
 import bl.Producto;
 import java.sql.Connection;
+import static java.util.Collections.list;
+import java.util.List;
 
 /**
  *
@@ -42,4 +44,12 @@ public class Servicios {
         return info.TomarUltimoProducto();
     }
     
+      public static List <Producto>retornaProductos() throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.retornaProductos();
+    }
+       public static List <Producto>ObtenerProductosCateg(int id_Producto, int id_Categoria) throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.ObtenerProductosCateg(id_Producto, id_Categoria);
+    }
 }

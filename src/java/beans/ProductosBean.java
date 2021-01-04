@@ -22,14 +22,15 @@ import org.primefaces.model.StreamedContent;
 @ViewScoped // Aquí va el tipo de scope que quiere que tenga este controlador
 
 public class ProductosBean {
+
     private int categoria = 0;
     private Producto producto = new Producto();
     private ImagenProducto imagen;
     private CrearArchivo ca = new CrearArchivo();
     private List<ImagenProducto> listaImagenes = new ArrayList<>();
-    
-    public void AgregarProducto() throws Exception{
-        
+
+    public void AgregarProducto() throws Exception {
+
         producto.getCodigo();
         producto.getNombre();
         producto.getId_Categoria();
@@ -39,15 +40,15 @@ public class ProductosBean {
         Servicios.AgregarProducto(producto);
         int ultimoProducto = Servicios.TomarUltimoProducto();
         if (listaImagenes != null) {
-                    for (int i = 0; i < listaImagenes.size(); i++) {
-                        Servicios.AgregarImagenProducto(listaImagenes.get(i).getImagen(), ultimoProducto);
-                        listaImagenes.get(i).setIdProducto(ultimoProducto);
-                        ca.crearArchivoProducto(listaImagenes.get(i), producto.getId_Categoria());
-                    }
-                }
-        
+            for (int i = 0; i < listaImagenes.size(); i++) {
+                Servicios.AgregarImagenProducto(listaImagenes.get(i).getImagen(), ultimoProducto);
+                listaImagenes.get(i).setIdProducto(ultimoProducto);
+                ca.crearArchivoProducto(listaImagenes.get(i), producto.getId_Categoria());
+            }
+        }
+
     }
-    
+
     public void obtenerImagenProducto(FileUploadEvent event) {
         try {
             imagen = new ImagenProducto();
@@ -67,7 +68,7 @@ public class ProductosBean {
         }
     }
 
-     public StreamedContent getImage() throws IOException {
+    public StreamedContent getImage() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -79,21 +80,20 @@ public class ProductosBean {
             return new DefaultStreamedContent(new FileInputStream(new File("/C:/NPC/Productos/", filename)));
         }
     }
-    
-    /*public void limpiarVariables() {
-        this.producto = new Producto();
-        this.ca = new CrearArchivo();
-        this. = "";
-        this.identificacion = "";
-        listaTestigos.clear();
-        lista_Adj.clear();
-        this.nombrecompleto = "";
-        selectadjsol = new AdjuntoSolicitud();
-        this.telefono = "";
-        sol = new Solicitud();
-        this.provincia = 0;
-    }*/
 
+//    /*public void limpiarVariables() {
+//     this.producto = new Producto();
+//     this.ca = new CrearArchivo();
+//     this. = "";
+//     this.codigo = "";   
+//     this.nombre = "";
+//     listaImagenes.clear();
+//     this.stock = 0;
+//     this.descripcion = ;
+//     this.precio = 0;
+//     }*/
+    
+    
     
     public int getCategoria() {
         return categoria;
@@ -127,7 +127,6 @@ public class ProductosBean {
         this.listaImagenes = listaImagenes;
     }
 
-
     public CrearArchivo getCa() {
         return ca;
     }
@@ -135,5 +134,5 @@ public class ProductosBean {
     public void setCa(CrearArchivo ca) {
         this.ca = ca;
     }
-   
+
 }

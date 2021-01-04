@@ -4,6 +4,8 @@ import bl.Producto;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -106,5 +108,57 @@ public class InformacionDal {
             csw.CerrarConexion();
         }
         return ultimaSolicitud;
+    }
+   
+    public List<Producto> retornaProductos() throws Exception {
+
+        List<Producto> listaProductos = new ArrayList();
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call retornaProductos }");
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setNombre(rs.getString(1));
+                producto.setDescripcion(rs.getString(2));
+                producto.setPrecio(rs.getFloat(3));
+
+                listaProductos.add(producto);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return listaProductos;
+    }   
+    
+    public List<Producto> ObtenerProductosCateg(int id_Producto, int id_Categoria) throws Exception {
+
+        List<Producto> listaS = new ArrayList();
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call retornaProductosPorCategoria (?)}");
+            cs.setInt(1, id_Producto);
+            cs.setInt(2, id_Categoria);
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+              Producto producto = new Producto();
+                producto.setNombre(rs.getString(1));
+                producto.setDescripcion(rs.getString(2));
+                producto.setPrecio(rs.getFloat(3));
+
+                listaS.add(producto);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return listaS;
     }
 }
