@@ -12,10 +12,9 @@ import java.util.List;
  * @author ferpm
  */
 public class InformacionDal {
-    
+
     private ConexionServidor csw = new ConexionServidor();
-    
-    
+
     public String ObtenerTextoIndex() throws Exception {
         String texto = "";
         try {
@@ -34,7 +33,7 @@ public class InformacionDal {
         }
         return texto;
     }
-    
+
     public boolean ActualizarTextoIndex(String texto) throws Exception {
         boolean exito = false;
         try {
@@ -51,8 +50,8 @@ public class InformacionDal {
         }
         return exito;
     }
-    
-    public boolean AgregarProducto(Producto producto) throws Exception{
+
+    public boolean AgregarProducto(Producto producto) throws Exception {
         boolean existe = false;
         try {
             Connection cnx = csw.ObtenerConexion();
@@ -73,7 +72,7 @@ public class InformacionDal {
         }
         return existe;
     }
-    
+
     public void AgregarImagenProducto(String imagen, int idProducto) throws Exception {
         try {
             Connection cnx = csw.ObtenerConexion();
@@ -89,7 +88,7 @@ public class InformacionDal {
             csw.CerrarConexion();
         }
     }
-    
+
     public int TomarUltimoProducto() throws Exception {
         int ultimaSolicitud = 0;
         try {
@@ -109,7 +108,7 @@ public class InformacionDal {
         }
         return ultimaSolicitud;
     }
-   
+
     public List<Producto> retornaProductos() throws Exception {
 
         List<Producto> listaProductos = new ArrayList();
@@ -133,24 +132,24 @@ public class InformacionDal {
             csw.CerrarConexion();
         }
         return listaProductos;
-    }   
-    
-    public List<Producto> ObtenerProductosCateg(int id_Producto, int id_Categoria) throws Exception {
+    }
 
+    public List<Producto> ObtenerProductosCateg(int id_Categoria) throws Exception {
         List<Producto> listaS = new ArrayList();
         try {
             CallableStatement cs = null;
             Connection cnx = csw.ObtenerConexion();
             cs = cnx.prepareCall("{ call retornaProductosPorCategoria (?)}");
-            cs.setInt(1, id_Producto);
-            cs.setInt(2, id_Categoria);
+            cs.setInt(1, id_Categoria);
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-              Producto producto = new Producto();
-                producto.setNombre(rs.getString(1));
-                producto.setDescripcion(rs.getString(2));
+                Producto producto = new Producto();
+                producto.setId_Producto(rs.getInt(1));
+                producto.setNombre(rs.getString(2));
                 producto.setPrecio(rs.getFloat(3));
-
+                producto.setDescripcion(rs.getString(4));
+                producto.setPrecio(rs.getFloat(5));
+                producto.setImagen(rs.getString(6));
                 listaS.add(producto);
             }
 
@@ -160,5 +159,49 @@ public class InformacionDal {
             csw.CerrarConexion();
         }
         return listaS;
+    }
+
+    public List<Producto> ObtenerProductos() throws Exception {
+        List<Producto> nombre = new ArrayList();
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call ObtenerProductos}");
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setNombre(rs.getString(1));
+                nombre.add(producto);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return nombre;
+    }
+
+    
+
+    public String ObtenerImagenProducto(int idProducto) throws Exception {
+        String nombre = "";
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call ObtenerImagenProducto (?)}");
+            cs.setInt(1, idProducto);
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                
+                nombre = rs.getString(1);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return nombre;
     }
 }
