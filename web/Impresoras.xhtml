@@ -9,44 +9,52 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <p:dataGrid var="producto" value="#{productosB.productosImpresoras}" columns="3" layout="grid"
+            <p:dataGrid var="producto" value="#{VistaProductosB.productosImpresoras}" columns="3" layout="grid"
                         rows="12" paginator="true" id="productos"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16">
+                        rowsPerPageTemplate="1,2,3">
 
                 <f:facet name="header">
                     Impresoras
                 </f:facet>
 
-                <p:panel header="#{producto.id_Producto}" style="text-align:center; width: 100%; ">
+                <p:panel header="#{producto.nombre}" style="text-align:center; width: 100%; ">
                     <h:panelGrid columns="1" style="width:100%; text-align: center" >
-                        
+                        <p:graphicImage value="#{VistaProductosB.imageProductoImpresora}" width="100%" height="30%" cache="false">
+                            <f:param name="id" value="#{producto.id_Producto}"/>
+                            <f:param name="imagen" value="#{producto.imagen}" />
+                        </p:graphicImage>
                         <br></br>
-                        <h:outputText value="#{producto.nombre}"  />
+                        <h:outputText value="₡#{producto.precio}"  />
                         <p:commandLink update=":form:DetalleProducto" oncomplete="PF('productoDialog').show()" title="View Detail">
                             <h:outputText styleClass="fa fa-search" style="margin:0 auto;"/>
-                            <f:setPropertyActionListener value="#{producto}" target="#{productosB.productoSeleccionado}" />
+                            <f:setPropertyActionListener value="#{producto}" target="#{VistaProductosB.productoSeleccionado}" />
+                        </p:commandLink>
+                        <p:commandLink action="#{VistaProductosB.agregarProducto()}">
+                            <h:outputText styleClass="fa fa-shopping-cart" style="margin:0 auto;"/>
+                            <f:setPropertyActionListener value="#{producto}" target="#{VistaProductosB.productoSeleccionado}" />
                         </p:commandLink>
                     </h:panelGrid>
+                    
                 </p:panel>
 
             </p:dataGrid>
 
             <p:dialog header="Car Info" widgetVar="productoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="DetalleProducto" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty productosB.productoSeleccionado}" columnClasses="label,value" style="width:100%; text-align: center">
+                    <p:panelGrid  columns="2" rendered="#{not empty VistaProductosB.productoSeleccionado}" columnClasses="label,value" style="width:100%; text-align: center">
 
                         <h:outputText value="Id:" />
-                        <h:outputText value="#{productosB.productoSeleccionado.id_Producto}" />
+                        <h:outputText value="#{VistaProductosB.productoSeleccionado.id_Producto}" />
 
                         <h:outputText value="Nombre:" />
-                        <h:outputText value="#{productosB.productoSeleccionado.nombre}" />
+                        <h:outputText value="#{VistaProductosB.productoSeleccionado.nombre}" />
 
                         <h:outputText value="Descripción:" />
-                        <h:outputText value="#{productosB.productoSeleccionado.descripcion}"/>
+                        <h:outputText value="#{VistaProductosB.productoSeleccionado.descripcion}"/>
 
                         <h:outputText value="Precio" />
-                        <h:outputText value="$#{productosB.productoSeleccionado.precio}" />
+                        <h:outputText value="$#{VistaProductosB.productoSeleccionado.precio}" />
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>

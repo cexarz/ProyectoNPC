@@ -38,12 +38,14 @@
                                 <p:outputLabel value="Precio"></p:outputLabel>
                                 <p:inputText  value="#{productosB.producto.precio}"  required="true"/>  
                                 <p:outputLabel value="Imagen"></p:outputLabel>
-                                <h:form>
+                                <h:form enctype="multipart/form-data">
                                     <p:panelGrid  columns="1" columnClasses="ui-grid-col-12" styleClass="ui-panelgrid-blank text-left" >
-                                        <p:fileUpload fileUploadListener="#{productosB.obtenerImagenProducto}" mode="advanced" auto="true" label="Seleccione un archivo" />
+                                        <p:fileUpload fileUploadListener="#{productosB.obtenerImagenProducto}" mode="advanced" auto="true"  label="Seleccione un archivo" />
+                                        <p:commandButton id="enviar" value="Enviar" actionListener="#{productosB.AgregarProducto}" ajax="false" styleClass="p-mt-3 ui-button-outlined p-d-block"/> 
                                     </p:panelGrid>
+                                    
                                 </h:form>
-                                <p:commandButton id="enviar" value="Enviar" actionListener="#{productosB.AgregarProducto}"/> 
+                                
                             </p:panelGrid>
                         </div>
                     </p:panel>                    

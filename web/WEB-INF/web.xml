@@ -5,6 +5,7 @@
         <param-value>Development</param-value>
     </context-param>
 
+
     <servlet>
         <servlet-name>facesServlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -37,6 +38,7 @@
         <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name> 
         <param-value>false</param-value> 
     </context-param>   
+    
 
     <session-config>
         <session-timeout>
