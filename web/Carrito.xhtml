@@ -25,7 +25,11 @@
                 </p:column>
 
                 <p:column headerText="Cantidad">
-                    <h:outputText value="#{producto.cantidadCarrito}" />
+                    <p:inputText value="#{producto.cantidadCarrito}">
+                        <p:ajax event="blur" update="mensaje" listener="#{CarritoB.hayStock}"/>
+                    </p:inputText>
+                    <h:message for="mensaje"/>
+                    <h:outputText style="color: white" id="mensaje" value="#{CarritoB.mensaje}"/> 
                 </p:column>
 
                 <p:column headerText="Precio">
@@ -42,6 +46,7 @@
                 <f:facet name="footer">
                     <span class="p-text-bold">In total there are ? products.</span>
                 </f:facet>
+
             </p:dataTable>
         </h:form>
     </ui:define>

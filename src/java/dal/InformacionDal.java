@@ -150,6 +150,7 @@ public class InformacionDal {
                 producto.setDescripcion(rs.getString(4));
                 producto.setPrecio(rs.getFloat(5));
                 producto.setImagen(rs.getString(6));
+                producto.setStock(rs.getInt(7));
                 listaS.add(producto);
             }
 

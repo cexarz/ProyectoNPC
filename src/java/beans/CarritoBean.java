@@ -26,6 +26,8 @@ public class CarritoBean {
     private Producto productoSeleccionado;
     private static List<Producto> listaCarrito = new ArrayList<>();
 
+    private String mensaje = "";
+
     public CarritoBean() throws Exception {
 
     }
@@ -53,17 +55,41 @@ public class CarritoBean {
                 existe = true;
                 index = contador;
             }
-            contador++;       
+            contador++;
         }
         if (existe) {
             listaCarrito.get(index).setCantidadCarrito(listaCarrito.get(index).getCantidadCarrito() + 1);
-        }else{
+        } else {
             listaCarrito.add(productoCarrito);
-        }      
+        }
     }
-    
-    public void eliminarProductoCarrito(){
-         this.productoSeleccionado.getId_Producto();
+
+    public void eliminarProductoCarrito() throws IOException {
+        int producto = this.productoSeleccionado.getId_Producto();
+        boolean encontro = false;
+        int contador = 0;
+        int index = 0;
+        while (contador < listaCarrito.size()) {
+            if (listaCarrito.get(contador).getId_Producto() == producto) {
+                encontro = true;
+                index = contador;
+            }
+            contador++;
+        }
+        if (encontro) {
+            listaCarrito.remove(index);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Carrito.xhtml");
+        }
+    }
+
+    public void hayStock() {
+        /*int stock = this.productoSeleccionado.getCantidadCarrito();
+        if (stock < this.productoSeleccionado.getStock()) {
+            mensaje = "No hay esa cantidad disponible.";
+        }else{
+            mensaje = "";
+        }
+        */
     }
 
     public Producto getProductoSeleccionado() {
@@ -80,6 +106,14 @@ public class CarritoBean {
 
     public void setListaCarrito(List<Producto> listaCarrito) {
         this.listaCarrito = listaCarrito;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
 }

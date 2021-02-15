@@ -58,6 +58,7 @@ public class VistaProductosBean {
         productoCarrito.setPrecio(this.productoSeleccionado.getPrecio());
         productoCarrito.setImagen(this.productoSeleccionado.getImagen());
         productoCarrito.setCodigo(this.productoSeleccionado.getCodigo());
+        productoCarrito.setStock(this.productoSeleccionado.getStock());
         productoCarrito.setCantidadCarrito(1);
         CarritoBean.agregarProductoCarrito(productoCarrito);
     }
