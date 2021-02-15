@@ -25,11 +25,7 @@
                 </p:column>
 
                 <p:column headerText="Cantidad">
-                    <p:inputText value="#{producto.cantidadCarrito}">
-                        <p:ajax event="blur" update="mensaje" listener="#{CarritoB.hayStock}"/>
-                    </p:inputText>
-                    <h:message for="mensaje"/>
-                    <h:outputText style="color: white" id="mensaje" value="#{CarritoB.mensaje}"/> 
+                    <h:outputText value="#{producto.cantidadCarrito}"/>
                 </p:column>
 
                 <p:column headerText="Precio">
@@ -43,11 +39,25 @@
                     </p:commandLink>
                 </p:column>
 
-                <f:facet name="footer">
-                    <span class="p-text-bold">In total there are ? products.</span>
-                </f:facet>
-
+                <f:facet name="footer" >
+                    <span class="p-text-bold">TOTAL:    </span>
+                    <h:outputText value="#{CarritoB.precioTotal}"/>
+                </f:facet>               
             </p:dataTable>
+            <p:commandButton  oncomplete="PF('productoDialog').show()" title="View Detail" value="Proceder a la compra"/>
+            <p:dialog header="Datos del Cliente" widgetVar="productoDialog" modal="true" resizable="false">
+                <p:panelGrid columns="2"  style="width:700px; text-align: center">
+                    <h:outputLabel value="Nombre Completo:" style="color: black"/>
+                    <p:inputText style="width: 100%" value="#{CarritoB.nombreCliente}"/>
+                    <h:outputLabel value="Correo Electrónico:" style="color: black"/>
+                    <p:inputText style="width: 100%" value="#{CarritoB.correoCliente}"/>
+                </p:panelGrid>
+                <br></br>
+                <p:panelGrid columns="1"  style="width:700px; text-align: center; border-style: hidden hidden ">
+                    <p:commandButton actionListener="#{CarritoB.procederCompra()}" value="Realizar Compra" />
+                </p:panelGrid>
+
+            </p:dialog>
         </h:form>
     </ui:define>
 

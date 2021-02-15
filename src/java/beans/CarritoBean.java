@@ -1,5 +1,6 @@
 package beans;
 
+import bl.Crearcorreo;
 import bl.Producto;
 import dal.Servicios;
 import java.io.File;
@@ -11,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import javax.servlet.http.HttpSession;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -25,13 +25,17 @@ public class CarritoBean {
 
     private Producto productoSeleccionado;
     private static List<Producto> listaCarrito = new ArrayList<>();
+    private static float precioTotal = 0;
 
     private String mensaje = "";
+    
+    private String nombreCliente = "";
+    private String correoCliente = "";
 
     public CarritoBean() throws Exception {
 
     }
-
+    
     public StreamedContent getImageProductoImpresora() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -59,8 +63,10 @@ public class CarritoBean {
         }
         if (existe) {
             listaCarrito.get(index).setCantidadCarrito(listaCarrito.get(index).getCantidadCarrito() + 1);
+            precioTotal += listaCarrito.get(index).getPrecio();
         } else {
             listaCarrito.add(productoCarrito);
+            precioTotal += productoCarrito.getPrecio();
         }
     }
 
@@ -78,19 +84,75 @@ public class CarritoBean {
         }
         if (encontro) {
             listaCarrito.remove(index);
+            if (listaCarrito.isEmpty()) {
+                precioTotal = 0;
+            } else {
+                precioTotal -= listaCarrito.get(index).getCantidadCarrito() * listaCarrito.get(index).getPrecio();
+            }
             FacesContext.getCurrentInstance().getExternalContext().redirect("Carrito.xhtml");
         }
     }
+   
+    public void procederCompra() throws IOException{     
+        enviarCorreoUsuario();
+        //enviarCorreoNpc();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        
+    }
+    
+    public void enviarCorreoUsuario() {
+        try {
+            Crearcorreo cc = new Crearcorreo();
+            String destino = correoCliente;
+            String copia = "";
+            String asunto = "Factura de Compra";
+            String mensaje = " ";
 
-    public void hayStock() {
-        /*int stock = this.productoSeleccionado.getCantidadCarrito();
+            String[] parametros = new String[1];
+            parametros[0] = nombreCliente;
+            boolean resp = cc.CorreoCompraUsuario(destino, copia, asunto, parametros);
+            if (resp == true) {
+                System.out.println("Correo enviado con éxito");
+            } else {
+                System.out.println("El correo no se envió");
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error al enviar correo " + e.toString());
+        }
+    }
+    
+    public void enviarCorreoNpc() {
+        try {
+            Crearcorreo cc = new Crearcorreo();
+            String destino = "npcprueba@gmail.com";
+            String copia = "";
+            String asunto = "Nueva Compra";
+            String mensaje = " ";
+
+            String[] parametros = new String[2];
+            parametros[0] = nombreCliente;
+            parametros[1] = correoCliente;
+            boolean resp = cc.CorreoCompraNpc(destino, copia, asunto, parametros);
+            if (resp == true) {
+                System.out.println("Correo enviado con éxito");
+            } else {
+                System.out.println("El correo no se envió");
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error al enviar correo " + e.toString());
+        }
+    }
+
+    /*public void hayStock() {
+        int stock = this.productoSeleccionado.getCantidadCarrito();
         if (stock < this.productoSeleccionado.getStock()) {
             mensaje = "No hay esa cantidad disponible.";
-        }else{
+        } else {
             mensaje = "";
         }
-        */
-    }
+    }*/
 
     public Producto getProductoSeleccionado() {
         return productoSeleccionado;
@@ -114,6 +176,30 @@ public class CarritoBean {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public float getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(float precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getCorreoCliente() {
+        return correoCliente;
+    }
+
+    public void setCorreoCliente(String correoCliente) {
+        this.correoCliente = correoCliente;
     }
 
 }

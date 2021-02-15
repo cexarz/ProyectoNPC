@@ -8,7 +8,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form id="form">
+        <h:form id="form">         
             <p:dataGrid var="producto" value="#{VistaProductosB.productosImpresoras}" columns="3" layout="grid"
                         rows="12" paginator="true" id="productos"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -17,8 +17,11 @@
                 <f:facet name="header">
                     Impresoras
                 </f:facet>
-
-                <p:panel header="#{producto.nombre}" style="text-align:center; width: 100%; ">
+                <p:blockUI block="panel" trigger="agregar">
+                    Se agregó al carrito.<br/>
+                    <p:graphicImage library="img" name="check_1.gif" width="200px" height="150px"/>
+                </p:blockUI>
+                <p:panel id="panel" header="#{producto.nombre}" style="text-align:center; width: 100%; ">                    
                     <h:panelGrid columns="1" style="width:100%; text-align: center" >
                         <p:graphicImage value="#{VistaProductosB.imageProductoImpresora}" width="250px" height="200px" cache="false">
                             <f:param name="id" value="#{producto.id_Producto}"/>
@@ -30,30 +33,30 @@
                             <h:outputText styleClass="fa fa-search" style="margin:0 auto;"/>
                             <f:setPropertyActionListener value="#{producto}" target="#{VistaProductosB.productoSeleccionado}" />
                         </p:commandLink>
-                        <p:commandLink action="#{VistaProductosB.agregarCarrito()}">
+                        <p:commandLink id="agregar" action="#{VistaProductosB.agregarCarrito()}">
                             <h:outputText styleClass="fa fa-shopping-cart" style="margin:0 auto;"/>
                             <f:setPropertyActionListener value="#{producto}" target="#{VistaProductosB.productoSeleccionado}" />
                         </p:commandLink>
                     </h:panelGrid>
-                    
+
                 </p:panel>
 
             </p:dataGrid>
 
-            <p:dialog header="Car Info" widgetVar="productoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:dialog header="Información del Producto" widgetVar="productoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="DetalleProducto" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty VistaProductosB.productoSeleccionado}" columnClasses="label,value" style="width:100%; text-align: center">
+                    <p:panelGrid  columns="2" rendered="#{not empty VistaProductosB.productoSeleccionado}" style="width:100%; text-align: center">
 
-                        <h:outputText value="Id:" />
+                        <h:outputLabel value="Id:" />
                         <h:outputText value="#{VistaProductosB.productoSeleccionado.id_Producto}" />
 
-                        <h:outputText value="Nombre:" />
+                        <h:outputLabel value="Nombre:" />
                         <h:outputText value="#{VistaProductosB.productoSeleccionado.nombre}" />
 
-                        <h:outputText value="Descripción:" />
+                        <h:outputLabel value="Descripción:" />
                         <h:outputText value="#{VistaProductosB.productoSeleccionado.descripcion}"/>
 
-                        <h:outputText value="Precio" />
+                        <h:outputLabel value="Precio" />
                         <h:outputText value="$#{VistaProductosB.productoSeleccionado.precio}" />
                     </p:panelGrid>
                 </p:outputPanel>

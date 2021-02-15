@@ -57,7 +57,39 @@ public class Crearcorreo {
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
+    
+    private String DetalleCorreoCompraUsuario(String[] parametros) throws Exception {
+        String detalle = "";
+        String asunto = new String(saludo() + " Estimado(a): " + parametros[0] +"<br><br>"
+                + "Reciba un cordial saludo de parte de NPC Technology, <br><br>"
+                + "Usted ha realizado una compra de los siguientes productos:" + "<br>"
+                + "Aún estoy meditando como poner lo productos jeje"  +"<br><br>"
+                + "Por favor no responda este correo.  <br>");
+        detalle = formatocorreo(OrtografiaDetalle(asunto));
+        return detalle;
+    }
+    
+    private String DetalleCorreoCompraNpc(String[] parametros) throws Exception {
+        String detalle = "";
 
+        String asunto = new String("El cliente " + parametros[0] + "<br>"
+                + "con el correo: " + parametros[1] +"<br><br>"
+                + "ha realizado un pedido de los siguientes productos:"  +"<br><br>");
+        detalle = formatocorreo(OrtografiaDetalle(asunto));
+        return detalle;
+    }
+    
+    public boolean CorreoCompraUsuario(String destino, String copia, String asunto, String[] parametros) throws Exception {
+        boolean r = true;
+        r = mail.send(destino, copia, asunto, DetalleCorreoCompraUsuario(parametros));
+        return r;
+    }
+    public boolean CorreoCompraNpc(String destino, String copia, String asunto, String[] parametros) throws Exception {
+        boolean r = true;
+        r = mail.send(destino, copia, asunto, DetalleCorreoCompraNpc(parametros));
+        return r;
+    }
+    
 
     //Saludo del correo
     private String saludo() {
