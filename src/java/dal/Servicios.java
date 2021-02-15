@@ -64,8 +64,8 @@ public class Servicios {
         return info.ObtenerImagenProducto(idProducto);
     }
     
-    public static void AgregarCarrito(int idProducto) throws Exception {
+    public static void AgregarCarrito(String ordenCompra, int idProducto, int cantidad, float precio, String nombreCliente) throws Exception {
         InformacionDal info = new InformacionDal();
-        info.AgregarCarrito(idProducto);
+        info.AgregarCarrito( ordenCompra,  idProducto,  cantidad,  precio,  nombreCliente);
     }
 }

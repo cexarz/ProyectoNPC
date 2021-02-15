@@ -206,12 +206,16 @@ public class InformacionDal {
         return nombre;
     }
     
-    public void AgregarCarrito(int idProducto) throws Exception {
+    public void AgregarCarrito(String ordenCompra, int idProducto, int cantidad, float precio, String nombreCliente) throws Exception {
         try {
             Connection cnx = csw.ObtenerConexion();
             CallableStatement cs = null;
-            cs = cnx.prepareCall("{ call AgregarCarrito (?) }");
-            cs.setInt(1, idProducto);
+            cs = cnx.prepareCall("{ call AgregarCompra (?,?,?,?,?) }");
+            cs.setString(1, ordenCompra);
+            cs.setInt(2, idProducto);
+            cs.setInt(3, cantidad);
+            cs.setFloat(4, precio);
+            cs.setString(5, nombreCliente);
             cs.execute();
 
         } catch (Exception e) {

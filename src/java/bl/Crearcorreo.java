@@ -3,7 +3,6 @@ package bl;
 import java.util.Calendar;
 import java.util.List;
 
-
 public class Crearcorreo {
 
     private Correo mail = new Correo();
@@ -30,10 +29,10 @@ public class Crearcorreo {
 
     private String DetalleCorreoUsuario(String[] parametros) throws Exception {
         String detalle = "";
-        String asunto = new String(saludo() + " Estimado(a): " + parametros[0] +"<br><br>"
+        String asunto = new String(saludo() + " Estimado(a): " + parametros[0] + "<br><br>"
                 + "Reciba un cordial saludo de parte de NPC Technology, <br><br>"
                 + "Su solicitud de contáctenos ha sido enviada." + "<br>"
-                + "Le responderemos su solicitud lo más pronto posible."  +"<br><br>"
+                + "Le responderemos su solicitud lo más pronto posible." + "<br><br>"
                 + "Por favor no responda este correo.  <br>");
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
@@ -50,46 +49,55 @@ public class Crearcorreo {
         String detalle = "";
 
         String asunto = new String("Un cliente quiere ponerse en contacto" + "<br>"
-                + "Favor responder lo más antes posible."  +"<br><br>"
-                + "el cliente:" + parametros[0] +"<br><br>"
-                + "con el correo: " + parametros[1] +"<br><br>"
-                +"le escribio lo siguiente: "+ parametros[2]);
+                + "Favor responder lo más antes posible." + "<br><br>"
+                + "el cliente:" + parametros[0] + "<br><br>"
+                + "con el correo: " + parametros[1] + "<br><br>"
+                + "le escribio lo siguiente: " + parametros[2]);
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
-    
-    private String DetalleCorreoCompraUsuario(String[] parametros) throws Exception {
+
+    private String DetalleCorreoCompraUsuario(String[] parametros, List<Producto> listaCarrito, float precioTotal) throws Exception {
         String detalle = "";
-        String asunto = new String(saludo() + " Estimado(a): " + parametros[0] +"<br><br>"
+        String items = "<html><body>\n<table style='border:2px solid black'>\n"+
+                "\n<tr><th>Producto</th>\n<th>Cantidad</th>\n<th>Precio</th>\n</tr>";
+        for (int i = 0; i < listaCarrito.size(); i++) {
+            Producto producto = listaCarrito.get(i);
+            items += "<tr>\n<th>" + producto.getNombre() + "</th>\n<th>" +
+                    producto.getCantidadCarrito() + "</th>\n<th>" + producto.getPrecio() + "</th>\n</tr>";
+        }
+        items += "</table></body></html>";
+        String asunto = new String(saludo() + " Estimado(a): " + parametros[0] + "<br><br>"
                 + "Reciba un cordial saludo de parte de NPC Technology, <br><br>"
-                + "Usted ha realizado una compra de los siguientes productos:" + "<br>"
-                + "Aún estoy meditando como poner lo productos jeje"  +"<br><br>"
-                + "Por favor no responda este correo.  <br>");
+                + "Usted ha realizado una compra de los siguientes productos:" + "<br><br>"
+                + items + "<br>"
+                + "<b>Total de la compra: "+ precioTotal + "</b>" + "<br><br>"
+                + "Por favor no responda este correo.");
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
-    
+
     private String DetalleCorreoCompraNpc(String[] parametros) throws Exception {
         String detalle = "";
 
         String asunto = new String("El cliente " + parametros[0] + "<br>"
-                + "con el correo: " + parametros[1] +"<br><br>"
-                + "ha realizado un pedido de los siguientes productos:"  +"<br><br>");
+                + "con el correo: " + parametros[1] + "<br><br>"
+                + "ha realizado un pedido de los siguientes productos:" + "<br><br>");
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
-    
-    public boolean CorreoCompraUsuario(String destino, String copia, String asunto, String[] parametros) throws Exception {
+
+    public boolean CorreoCompraUsuario(String destino, String copia, String asunto, String[] parametros, List<Producto> listaCarrito, float precioTotal) throws Exception {
         boolean r = true;
-        r = mail.send(destino, copia, asunto, DetalleCorreoCompraUsuario(parametros));
+        r = mail.send(destino, copia, asunto, DetalleCorreoCompraUsuario(parametros, listaCarrito, precioTotal));
         return r;
     }
+
     public boolean CorreoCompraNpc(String destino, String copia, String asunto, String[] parametros) throws Exception {
         boolean r = true;
         r = mail.send(destino, copia, asunto, DetalleCorreoCompraNpc(parametros));
         return r;
     }
-    
 
     //Saludo del correo
     private String saludo() {
@@ -175,6 +183,7 @@ public class Crearcorreo {
         }
         return saludo;
     }
+
     private String OrtografiaDetalle(String asunto) {
 
         asunto = asunto.replace("Ñ", "&Ntilde;");

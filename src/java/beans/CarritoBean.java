@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -28,14 +29,14 @@ public class CarritoBean {
     private static float precioTotal = 0;
 
     private String mensaje = "";
-    
+
     private String nombreCliente = "";
     private String correoCliente = "";
 
     public CarritoBean() throws Exception {
 
     }
-    
+
     public StreamedContent getImageProductoImpresora() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -92,14 +93,35 @@ public class CarritoBean {
             FacesContext.getCurrentInstance().getExternalContext().redirect("Carrito.xhtml");
         }
     }
-   
-    public void procederCompra() throws IOException{     
+
+    public void procederCompra() throws IOException, Exception {
         enviarCorreoUsuario();
         //enviarCorreoNpc();
+        agregarOrden();
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
-        
     }
-    
+
+    public void agregarOrden() throws Exception {
+        for (int i = 0; i < listaCarrito.size(); i++) {
+            Servicios.AgregarCarrito("Orden#", listaCarrito.get(i).getId_Producto(), listaCarrito.get(i).getCantidadCarrito(), precioTotal, nombreCliente);
+        }
+    }
+
+    /*public String generarConsecutivoOrden() throws Exception {
+        String consecutivo = "";
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 1) {
+            consecutivo = "C-AM-" + "00" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
+        } else if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 2) {
+            consecutivo = "C-AM-" + "0" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
+        } else {
+            consecutivo = "C-AM-" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
+        }
+
+        return consecutivo;
+    }*/
+
     public void enviarCorreoUsuario() {
         try {
             Crearcorreo cc = new Crearcorreo();
@@ -110,7 +132,7 @@ public class CarritoBean {
 
             String[] parametros = new String[1];
             parametros[0] = nombreCliente;
-            boolean resp = cc.CorreoCompraUsuario(destino, copia, asunto, parametros);
+            boolean resp = cc.CorreoCompraUsuario(destino, copia, asunto, parametros, listaCarrito, precioTotal);
             if (resp == true) {
                 System.out.println("Correo enviado con éxito");
             } else {
@@ -121,7 +143,7 @@ public class CarritoBean {
             System.err.println("Error al enviar correo " + e.toString());
         }
     }
-    
+
     public void enviarCorreoNpc() {
         try {
             Crearcorreo cc = new Crearcorreo();
@@ -146,14 +168,13 @@ public class CarritoBean {
     }
 
     /*public void hayStock() {
-        int stock = this.productoSeleccionado.getCantidadCarrito();
-        if (stock < this.productoSeleccionado.getStock()) {
-            mensaje = "No hay esa cantidad disponible.";
-        } else {
-            mensaje = "";
-        }
-    }*/
-
+     int stock = this.productoSeleccionado.getCantidadCarrito();
+     if (stock < this.productoSeleccionado.getStock()) {
+     mensaje = "No hay esa cantidad disponible.";
+     } else {
+     mensaje = "";
+     }
+     }*/
     public Producto getProductoSeleccionado() {
         return productoSeleccionado;
     }
