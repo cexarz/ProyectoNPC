@@ -8,24 +8,41 @@
 
     <ui:define name="content">
         <h:form id="form">
-            <p:dataGrid var="producto" value="#{VistaProductosB.listaCarrito}" columns="3" layout="grid"
-                        rows="12" paginator="false" id="productos">
-
+            <p:dataTable var="producto" value="#{CarritoB.listaCarrito}">
                 <f:facet name="header">
-                    Carrito de Compras
+                    Carrito
                 </f:facet>
 
-                <p:panel header="#{producto.nombre}" style="text-align:center; width: 100%; ">
-                    <h:panelGrid columns="1" style="width:100%; text-align: center" >
-                        <br></br>
-                        <h:outputText value="#{producto.precio}"  />
+                <p:column headerText="Imagen">
+                    <p:graphicImage value="#{CarritoB.imageProductoImpresora}" width="250px" height="200px" cache="false">
+                        <f:param name="id" value="#{producto.id_Producto}"/>
+                        <f:param name="imagen" value="#{producto.imagen}" />
+                    </p:graphicImage>
+                </p:column>
 
-                    </h:panelGrid>
-                    
-                </p:panel>
+                <p:column headerText="Producto">
+                    <h:outputText value="#{producto.nombre}" />
+                </p:column>
 
-            </p:dataGrid>
-            <p:commandButton value="Confirmar compra"></p:commandButton>
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{producto.cantidadCarrito}" />
+                </p:column>
+
+                <p:column headerText="Precio">
+                    <h:outputText value="#{producto.precio}" />
+                </p:column>
+
+                <p:column headerText="Eliminar">
+                    <p:commandLink action="#{CarritoB.eliminarProductoCarrito()}">
+                        <h:outputText styleClass="fa fa-times" style="margin:0 auto;"/>
+                        <f:setPropertyActionListener value="#{producto}" target="#{CarritoB.productoSeleccionado}" />
+                    </p:commandLink>
+                </p:column>
+
+                <f:facet name="footer">
+                    <span class="p-text-bold">In total there are ? products.</span>
+                </f:facet>
+            </p:dataTable>
         </h:form>
     </ui:define>
 

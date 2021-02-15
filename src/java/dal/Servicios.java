@@ -63,4 +63,9 @@ public class Servicios {
         InformacionDal info = new InformacionDal();
         return info.ObtenerImagenProducto(idProducto);
     }
+    
+    public static void AgregarCarrito(int idProducto) throws Exception {
+        InformacionDal info = new InformacionDal();
+        info.AgregarCarrito(idProducto);
+    }
 }

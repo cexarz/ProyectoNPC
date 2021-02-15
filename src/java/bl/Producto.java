@@ -13,6 +13,7 @@ public class Producto {
     private String descripcion;
     private float precio;
     private String imagen;
+    private int cantidadCarrito;
 
     public int getId_Producto() {
         return id_Producto;
@@ -76,6 +77,14 @@ public class Producto {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public int getCantidadCarrito() {
+        return cantidadCarrito;
+    }
+
+    public void setCantidadCarrito(int cantidadCarrito) {
+        this.cantidadCarrito = cantidadCarrito;
     }
     
     

@@ -204,4 +204,19 @@ public class InformacionDal {
         }
         return nombre;
     }
+    
+    public void AgregarCarrito(int idProducto) throws Exception {
+        try {
+            Connection cnx = csw.ObtenerConexion();
+            CallableStatement cs = null;
+            cs = cnx.prepareCall("{ call AgregarCarrito (?) }");
+            cs.setInt(1, idProducto);
+            cs.execute();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+    }
 }

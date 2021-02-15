@@ -30,3 +30,7 @@ body{
 /*.container{
     min-height: calc(100vh - 50px - 100px);
 }*/
+
+.ui-dataview-header ui-widget-header ui-helper-clearfix ui-corner-top{
+    visibility: hidden;
+}

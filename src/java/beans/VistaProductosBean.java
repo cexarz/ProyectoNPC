@@ -12,7 +12,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -52,14 +51,15 @@ public class VistaProductosBean {
             return new DefaultStreamedContent(new FileInputStream(new File("/C:/NPC/Productos/Impresoras/"+idProducto+"/", filename)));
         }
     }
-    public void agregarProducto(){
-        Producto itemCarrito = new Producto();
-        itemCarrito.setId_Producto(this.productoSeleccionado.getId_Producto());
-        itemCarrito.setNombre(this.productoSeleccionado.getNombre());
-        itemCarrito.setPrecio(this.productoSeleccionado.getPrecio());
-        listaCarrito.add(itemCarrito);
-        /*HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        httpSession.setAttribute("itemCarrito", itemCarrito);*/
+    public void agregarCarrito() throws Exception{
+        Producto productoCarrito = new Producto();
+        productoCarrito.setId_Producto(this.productoSeleccionado.getId_Producto()); 
+        productoCarrito.setNombre(this.productoSeleccionado.getNombre());
+        productoCarrito.setPrecio(this.productoSeleccionado.getPrecio());
+        productoCarrito.setImagen(this.productoSeleccionado.getImagen());
+        productoCarrito.setCodigo(this.productoSeleccionado.getCodigo());
+        productoCarrito.setCantidadCarrito(1);
+        CarritoBean.agregarProductoCarrito(productoCarrito);
     }
 
     public List<Producto> getProductosImpresoras() {

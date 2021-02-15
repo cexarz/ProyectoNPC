@@ -2,28 +2,17 @@ package beans;
 
 import bl.CrearArchivo;
 import bl.ImagenProducto;
-import bl.Img;
 import bl.Producto;
 import dal.Servicios;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "productosB") //Aqui va el nombre del Bean
-@ViewScoped// Aquí va el tipo de scope que quiere que tenga este controlador
+@SessionScoped// Aquí va el tipo de scope que quiere que tenga este controlador
 
 public class ProductosBean {
 
@@ -32,11 +21,7 @@ public class ProductosBean {
     private ImagenProducto imagen;
     private CrearArchivo ca = new CrearArchivo();
     private List<ImagenProducto> listaImagenes = new ArrayList<>();
-
-    
     private UploadedFile file;
-
-    
 
     public void obtenerImagenProducto(FileUploadEvent event) {
         try {
@@ -73,11 +58,9 @@ public class ProductosBean {
                 ca.crearArchivoProducto(listaImagenes.get(i), producto.getId_Categoria());
             }
         }
-
     }
-
-
     
+  
 
 //    public void limpiarVariables() {
 //     producto = new Producto();
