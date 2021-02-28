@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./Plantillas/usuarios.xhtml"				
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui">
+                
+
+    <ui:define name="content">
+        <h:form id="formlogin" class="login">
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-3 ui-lg-4"></div>
+                <div class="ui-g-12 ui-md-6  ui-lg-4">
+                    <p:panel styleClass="caja" id="panel">
+                        <div class="ui-fluid ">
+                            <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" style="text-align: center" >
+                                <h3 class="text-white">Iniciar Sesión</h3>
+                                <p class="text-justify text-white">Por favor ingresar usuario y contraseña.</p>
+                            </p:panelGrid>
+                            <p:panelGrid  columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank text-center" >
+                                <p:inputText id="txtusuario"  styleClass="login-input" value="#{LoginB.inputUser}" placeholder="Usuario"  
+                                             requiredMessage="Debe ingresar un usuario" required="true">                                   
+                                </p:inputText>
+                                <p:inputText type="password" id="txtcontraseña" styleClass="login-input" value="#{LoginB.inputPassword}"  
+                                             placeholder="Contraseña" required="true" requiredMessage="Debe ingresar una contraseña"/>
+                                <p:commandButton id="ingresar" value="Ingresar" styleClass="login-submit" update="formlogin" actionListener="#{LoginB.validarlogin}" /> 
+                                <p:messages id="messages" showDetail="false"  closable="true">
+                                    <p:autoUpdate/>
+                                </p:messages>                              
+                            </p:panelGrid>
+                        </div>
+                    </p:panel>                    
+                </div>
+                <div class="ui-g-12 ui-md-3  ui-lg-4"></div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
