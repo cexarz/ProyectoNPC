@@ -10,10 +10,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
+     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
         <title>NPC</title>
     </h:head>
 
-    <h:body>
+    <h:body style="background-color: #213B52;"> 
 
         <div id="top">
             <ui:insert name="top">
@@ -35,10 +36,11 @@
                                     <b:navLink value="Protectores de electricidad" href="Protectores.xhtml"></b:navLink>
                                     <b:navLink value="Oficina" href="Oficina.xhtml"></b:navLink>
                                 </b:dropMenu>
+                                <b:navLink value="Carrito" href="Carrito.xhtml"></b:navLink>
                                 <b:navLink value="Trabajos Realizados" href="TrabajosRealizados.xhtml"></b:navLink>
                                 <b:navLink value="Contáctenos" href="Contactenos.xhtml"></b:navLink>
                                 <b:navLink value="Administrador" href="login.xhtml"></b:navLink>
-                                <b:navLink value="Carrito" href="Carrito.xhtml"></b:navLink>
+                                
                             </b:navbarLinks>
                         </ul>
                     </b:navBar>
@@ -49,7 +51,7 @@
         </div>
 
         <div id="content" class="borderless">
-            <ui:insert name="content">Content</ui:insert>
+            <ui:insert name="content">Content</ui:insert>        
         </div>
 
     </h:body>

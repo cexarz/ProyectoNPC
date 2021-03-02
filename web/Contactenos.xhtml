@@ -4,26 +4,44 @@
                 template="./Plantillas/usuarios.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns="http://www.w3.org/1999/xhtml">
-
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:b="http://bootsfaces.net/ui">
+    <h:outputStylesheet name="cssLayout.css"/>
+    <h:outputStylesheet library="primefaces-7.0" name="primeicons/primeicons.css"/>
     <ui:define name="content">
-        <h:form>      
-            <h3>Contáctenos</h3> <br></br>
-            <div>
+        <h:form >      
+            <h1 style="color: #FDC134">Contáctenos</h1> <br></br><br></br><br></br><br></br><br></br>
+            <div align='center'>
                 <div class="p-field">
                     <p:outputLabel for="Nombre" value="Nombre" /> &nbsp;
                     <p:inputText id="Nombre" placeholder="Nombre" value="#{ContactenosB.datosCon.nombre}" />
                 </div>
-                <div class="p-field">
+                <div  class="p-field">
                     <p:outputLabel for="Correo" value="Correo" /> &nbsp; &nbsp;
                     <p:inputText id="Correo" placeholder="Correo" value="#{ContactenosB.datosCon.correo}" />
                 </div>
             </div>
-            <p:inputTextarea rows="5" cols="30" counter="display" maxlength="1000" counterTemplate="{0} caracteres restantes." autoResize="true" 
-                             value="#{ContactenosB.datosCon.descripcion}" />
+            <div align='center'>
+                <p:inputTextarea placeholder="Mensaje" rows="5" cols="30" counter="display" maxlength="1000"   counterTemplate="{0} caracteres restantes." autoResize="true"
+                                 value="#{ContactenosB.datosCon.descripcion}" />
+            </div>
             <br />
-            <h:outputText id="display" /><br></br><br></br>
-            <p:commandButton value="Enviar"  actionListener="#{ContactenosB.enviarCorreo}" /> 
-        </h:form>
+            <h:outputText id="display" />
+            <div align='center'>
+                <p:commandButton value="Enviar"  actionListener="#{ContactenosB.enviarCorreo}" style="background-color: #FDC134" /> 
+            </div>
+        </h:form><br></br><br></br><br></br>
+        <div align='center'>
+            <span style="font-size: 2em; color: white;">
+                <i class="fa fa-envelope"></i>
+                <p>npctecno@gmail.com</p>
+                </span>  
+        </div>  <br></br><br></br><br></br>
+        <div align='center'>
+             <span style="font-size: 2em; color: white;">
+          <i class="fa fa-whatsapp" align='center'></i>
+                 <p>+506 6335 6269</p>
+             </span>
+        </div>
     </ui:define>
 </ui:composition>

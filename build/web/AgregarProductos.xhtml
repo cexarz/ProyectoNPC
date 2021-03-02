@@ -8,19 +8,19 @@
                 xmlns="http://www.w3.org/1999/xhtml">
 
     <ui:define name="content" class="container">
-        <h:form id="formlogin" class="login">
-            <div class="ui-g">
+        <h:form style="alignment-adjust: central" >
+            <div class="ui-g" >
                 <div class="p-col-12 p-md-6 p-lg-3">
                     <p:panel id="panel">
                         <div class="ui-fluid ">
-                            <p:panelGrid  columns="1" styleClass="ui-panelgrid-blank" style="text-align: center">
+                                <p:panelGrid  columns="1" styleClass="ui-panelgrid-blank" style="text-align: center">
                                 <h3 class="text-white">Agregar productos</h3>
 
-                                <p:outputLabel value="Código"></p:outputLabel>
+                                <p:outputLabel style='background-color: black' value="Código"></p:outputLabel>
                                 <p:inputText  value="#{productosB.producto.codigo}"  required="true"/>                                                                  
-                                <p:outputLabel value="Nombre"></p:outputLabel>
+                                <p:outputLabel style='background-color: black' value="Nombre"></p:outputLabel>
                                 <p:inputText  value="#{productosB.producto.nombre}"  required="true"/>  
-                                <p:outputLabel value="Categoría"></p:outputLabel>
+                                <p:outputLabel style='background-color: black' value="Categoría"></p:outputLabel>
                                 <p:selectOneMenu  value="#{productosB.producto.id_Categoria}" >  
                                     <f:selectItem  itemLabel="Seleccione una categoría" itemValue="#{null}" /> 
                                     <f:selectItem  itemLabel="Impresora" itemValue="1" /> 
@@ -31,13 +31,13 @@
                                     <f:selectItem  itemLabel="Protectores de electricidad" itemValue="6" />
                                     <f:selectItem  itemLabel="Oficina" itemValue="7" />
                                 </p:selectOneMenu>
-                                <p:outputLabel value="Stock"></p:outputLabel>
+                                <p:outputLabel style='background-color: black' value="Stock"></p:outputLabel>
                                 <p:inputText  value="#{productosB.producto.stock}"  required="true"/>  
-                                <p:outputLabel value="Descripción"></p:outputLabel>
+                                <p:outputLabel style='background-color: black' value="Descripción"></p:outputLabel>
                                 <p:inputTextarea  value="#{productosB.producto.descripcion}"  required="true"/>  
-                                <p:outputLabel value="Precio"></p:outputLabel>
+                                <p:outputLabel style='background-color: black' value="Precio"></p:outputLabel>
                                 <p:inputText  value="#{productosB.producto.precio}"  required="true"/>  
-                                <p:outputLabel value="Imagen"></p:outputLabel>
+                                <p:outputLabel style='background-color: black' value="Imagen"></p:outputLabel>
                                 <h:form enctype="multipart/form-data">
                                     <p:panelGrid  columns="1" columnClasses="ui-grid-col-12" styleClass="ui-panelgrid-blank text-left" >
                                         <p:fileUpload fileUploadListener="#{productosB.obtenerImagenProducto}" mode="advanced" auto="true"  label="Seleccione un archivo" />

@@ -5,7 +5,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+ <h:outputStylesheet library="css" name="cssLayout.css"/>
     <ui:define name="content">
         <h:form id="form">
             <p:dataTable var="producto" value="#{CarritoB.listaCarrito}">
@@ -44,7 +44,7 @@
                     <h:outputText value="#{CarritoB.precioTotal}"/>
                 </f:facet>               
             </p:dataTable>
-            <p:commandButton  oncomplete="PF('productoDialog').show()" title="View Detail" value="Proceder a la compra"/>
+            <p:commandButton  oncomplete="PF('productoDialog').show()" title="View Detail" value="Proceder al pedido" style="background-color: #FDC134"/>
             <p:dialog header="Datos del Cliente" widgetVar="productoDialog" modal="true" resizable="false">
                 <p:panelGrid columns="2"  style="width:700px; text-align: center">
                     <h:outputLabel value="Nombre Completo:" style="color: black"/>
@@ -53,8 +53,8 @@
                     <p:inputText style="width: 100%" value="#{CarritoB.correoCliente}"/>
                 </p:panelGrid>
                 <br></br>
-                <p:panelGrid columns="1"  style="width:700px; text-align: center; border-style: hidden hidden ">
-                    <p:commandButton actionListener="#{CarritoB.procederCompra()}" value="Realizar Compra" />
+                <p:panelGrid columns="1"  style="width:700px; text-align: center; border-style:hidden">
+                    <p:commandButton actionListener="#{CarritoB.procederCompra()}" value="Realizar Pedido" style="background-color: #FDC134" />
                 </p:panelGrid>
 
             </p:dialog>
