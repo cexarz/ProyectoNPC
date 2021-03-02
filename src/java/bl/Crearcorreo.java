@@ -69,7 +69,7 @@ public class Crearcorreo {
         items += "</table></body></html>";
         String asunto = new String(saludo() + " Estimado(a): " + parametros[0] + "<br><br>"
                 + "Reciba un cordial saludo de parte de NPC Technology, <br><br>"
-                + "Usted ha realizado una compra de los siguientes productos:" + "<br><br>"
+                + "Usted ha realizado un pedido de los siguientes productos:" + "<br><br>"
                 + items + "<br>"
                 + "<b>Total de la compra: "+ precioTotal + "</b>" + "<br><br>"
                 + "Por favor no responda este correo.");
