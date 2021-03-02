@@ -68,4 +68,14 @@ public class Servicios {
         InformacionDal info = new InformacionDal();
         info.AgregarCarrito( ordenCompra,  idProducto,  cantidad,  precio,  nombreCliente);
     }
+    
+    public static int ObtenerCantidadProducto(int idProducto) throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.ObtenerCantidadProducto(idProducto);
+    }
+    
+    public static void EditarProducto(int idProducto, int stock) throws Exception {
+        InformacionDal info = new InformacionDal();
+        info.EditarProducto(idProducto, stock);
+    }
 }

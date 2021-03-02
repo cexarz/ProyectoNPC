@@ -7,12 +7,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -52,26 +53,32 @@ public class CarritoBean {
     }
 
     public static void agregarProductoCarrito(Producto productoCarrito) throws Exception {
-        boolean existe = false;
-        int contador = 0;
-        int index = 0;
-        while (contador < listaCarrito.size()) {
-            if (listaCarrito.get(contador).getId_Producto() == productoCarrito.getId_Producto()) {
-                existe = true;
-                index = contador;
+        int stockProducto = Servicios.ObtenerCantidadProducto(productoCarrito.getId_Producto());
+        if (stockProducto > 0) {
+            boolean existe = false;
+            int contador = 0;
+            int index = 0;
+            while (contador < listaCarrito.size()) {
+                if (listaCarrito.get(contador).getId_Producto() == productoCarrito.getId_Producto()) {
+                    existe = true;
+                    index = contador;
+                }
+                contador++;
             }
-            contador++;
-        }
-        if (existe) {
-            listaCarrito.get(index).setCantidadCarrito(listaCarrito.get(index).getCantidadCarrito() + 1);
-            precioTotal += listaCarrito.get(index).getPrecio();
-        } else {
-            listaCarrito.add(productoCarrito);
-            precioTotal += productoCarrito.getPrecio();
+            if (existe) {
+                listaCarrito.get(index).setCantidadCarrito(listaCarrito.get(index).getCantidadCarrito() + 1);
+                precioTotal += listaCarrito.get(index).getPrecio();
+            } else {
+                listaCarrito.add(productoCarrito);
+                precioTotal += productoCarrito.getPrecio();
+            }
+            Servicios.EditarProducto(productoCarrito.getId_Producto(), productoCarrito.getStock() - 1);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
         }
     }
 
-    public void eliminarProductoCarrito() throws IOException {
+    public void eliminarProductoCarrito() throws IOException, Exception {
         int producto = this.productoSeleccionado.getId_Producto();
         boolean encontro = false;
         int contador = 0;
@@ -84,13 +91,17 @@ public class CarritoBean {
             contador++;
         }
         if (encontro) {
+            int stockProducto = Servicios.ObtenerCantidadProducto(listaCarrito.get(index).getId_Producto());
+            Servicios.EditarProducto(listaCarrito.get(index).getId_Producto(), stockProducto + listaCarrito.get(index).getCantidadCarrito());
+            float precioEliminar = listaCarrito.get(index).getCantidadCarrito() * listaCarrito.get(index).getPrecio();
             listaCarrito.remove(index);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Carrito.xhtml");
             if (listaCarrito.isEmpty()) {
                 precioTotal = 0;
             } else {
-                precioTotal -= listaCarrito.get(index).getCantidadCarrito() * listaCarrito.get(index).getPrecio();
+                precioTotal -= precioEliminar;
+
             }
-            FacesContext.getCurrentInstance().getExternalContext().redirect("Carrito.xhtml");
         }
     }
 
@@ -108,20 +119,19 @@ public class CarritoBean {
     }
 
     /*public String generarConsecutivoOrden() throws Exception {
-        String consecutivo = "";
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 1) {
-            consecutivo = "C-AM-" + "00" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
-        } else if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 2) {
-            consecutivo = "C-AM-" + "0" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
-        } else {
-            consecutivo = "C-AM-" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
-        }
+     String consecutivo = "";
+     Calendar cal = Calendar.getInstance();
+     int year = cal.get(Calendar.YEAR);
+     if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 1) {
+     consecutivo = "C-AM-" + "00" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
+     } else if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 2) {
+     consecutivo = "C-AM-" + "0" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
+     } else {
+     consecutivo = "C-AM-" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
+     }
 
-        return consecutivo;
-    }*/
-
+     return consecutivo;
+     }*/
     public void enviarCorreoUsuario() {
         try {
             Crearcorreo cc = new Crearcorreo();

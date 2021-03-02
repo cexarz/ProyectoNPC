@@ -60,7 +60,7 @@ public class Crearcorreo {
     private String DetalleCorreoCompraUsuario(String[] parametros, List<Producto> listaCarrito, float precioTotal) throws Exception {
         String detalle = "";
         String items = "<html><body>\n<table style='border:2px solid black'>\n"+
-                "\n<tr><th>Producto</th>\n<th>Cantidad</th>\n<th>Precio</th>\n</tr>";
+                "\n<tr><th>Producto</th>\n<th>Cantidad</th>\n<th>Precio por Unidad</th>\n</tr>";
         for (int i = 0; i < listaCarrito.size(); i++) {
             Producto producto = listaCarrito.get(i);
             items += "<tr>\n<th>" + producto.getNombre() + "</th>\n<th>" +

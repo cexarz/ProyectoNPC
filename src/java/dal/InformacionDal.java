@@ -183,8 +183,6 @@ public class InformacionDal {
         return nombre;
     }
 
-    
-
     public String ObtenerImagenProducto(int idProducto) throws Exception {
         String nombre = "";
         try {
@@ -194,7 +192,7 @@ public class InformacionDal {
             cs.setInt(1, idProducto);
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
-                
+
                 nombre = rs.getString(1);
             }
 
@@ -205,7 +203,7 @@ public class InformacionDal {
         }
         return nombre;
     }
-    
+
     public void AgregarCarrito(String ordenCompra, int idProducto, int cantidad, float precio, String nombreCliente) throws Exception {
         try {
             Connection cnx = csw.ObtenerConexion();
@@ -223,5 +221,34 @@ public class InformacionDal {
         } finally {
             csw.CerrarConexion();
         }
+    }
+
+    public int ObtenerCantidadProducto(int idProducto) throws Exception {
+        int cantidad = 0;
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call ObtenerCantidadProducto (?)}");
+            cs.setInt(1, idProducto);
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                cantidad = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return cantidad;
+    }
+
+    public void EditarProducto(int idProducto, int stock) throws Exception {
+        Connection cnx = csw.ObtenerConexion();
+        CallableStatement cs = null;
+        cs = cnx.prepareCall("{ call EditarProducto (?,?) }");
+        cs.setInt(1, idProducto);
+        cs.setInt(2, stock);
+        cs.execute();
     }
 }
