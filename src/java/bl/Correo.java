@@ -1,5 +1,6 @@
 package bl;
 
+import dal.Servicios;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,7 +48,47 @@ public class Correo {
         try {
             try {
                 addContent(mensaje);
-                //addCID("cidcabecera", "C:/SQDC/LogoCorreo.png");
+                
+            } catch (Exception ex) {
+                System.out.printf(ex.toString());
+            }
+
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(destino));
+
+            if (!copia.equals("")) {
+                message.addRecipients(Message.RecipientType.CC, InternetAddress.parse(copia));
+            }
+            message.setSubject(asunto);
+            message.setContent(multipart);
+            Transport t = session.getTransport("smtp");
+            t.connect((String) properties.get("mail.smtp.user"), (String) properties.get("mail.smtp.password"));
+            t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+            if (!copia.equals("")) {
+                t.sendMessage(message, message.getRecipients(Message.RecipientType.CC));
+            }
+            t.close();
+            System.out.printf("Correo enviado satisfactoriamente: " + destino);
+            multipart = null;
+            return r;
+        } catch (MessagingException e) {
+            System.out.printf(e.toString());
+            r = false;
+            return r;
+        }
+    }
+    
+    public boolean sendPagoUsuario(String destino, String copia, String asunto, String mensaje) {
+        init();
+        boolean r = true;
+        List<String> adjuntos = new ArrayList<String>();
+        multipart = new MimeMultipart("related");
+        try {
+            try {
+                addContent(mensaje);
+                addAttach("C:/NPC/DatosPago.png"); //ruta donde se encuentra el fichero que queremos adjuntar.
+                             
             } catch (Exception ex) {
                 System.out.printf(ex.toString());
             }

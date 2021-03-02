@@ -89,7 +89,7 @@ public class Crearcorreo {
 
     public boolean CorreoCompraUsuario(String destino, String copia, String asunto, String[] parametros, List<Producto> listaCarrito, float precioTotal) throws Exception {
         boolean r = true;
-        r = mail.send(destino, copia, asunto, DetalleCorreoCompraUsuario(parametros, listaCarrito, precioTotal));
+        r = mail.sendPagoUsuario(destino, copia, asunto, DetalleCorreoCompraUsuario(parametros, listaCarrito, precioTotal));
         return r;
     }
 
