@@ -251,4 +251,31 @@ public class InformacionDal {
         cs.setInt(2, stock);
         cs.execute();
     }
+    
+    public int ObtenerConsecutivo() throws Exception {
+        int cantidad = 0;
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call ObtenerConsecutivo }");
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                cantidad = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return cantidad;
+    }
+    
+    public void AumentarConsecutivo() throws Exception {
+        Connection cnx = csw.ObtenerConexion();
+        CallableStatement cs = null;
+        cs = cnx.prepareCall("{ call AumentarConsecutivo }");
+        cs.execute();
+    }
+    
 }

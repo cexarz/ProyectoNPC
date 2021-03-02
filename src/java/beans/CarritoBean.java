@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -107,15 +109,22 @@ public class CarritoBean {
 
     public void procederCompra() throws IOException, Exception {
         enviarCorreoUsuario();
-        //enviarCorreoNpc();
+        enviarCorreoNpc();
         agregarOrden();
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 
+    
     public void agregarOrden() throws Exception {
+        
+        int consecutivo = Servicios.ObtenerConsecutivo();
+        String ordenCompra = "Orden#" + consecutivo;
         for (int i = 0; i < listaCarrito.size(); i++) {
-            Servicios.AgregarCarrito("Orden#", listaCarrito.get(i).getId_Producto(), listaCarrito.get(i).getCantidadCarrito(), precioTotal, nombreCliente);
+            Servicios.AgregarCarrito(ordenCompra, listaCarrito.get(i).getId_Producto(), listaCarrito.get(i).getCantidadCarrito(), precioTotal, nombreCliente);
         }
+        Servicios.AumentarConsecutivo();
+        listaCarrito.clear();
+        precioTotal = 0;
     }
 
     /*public String generarConsecutivoOrden() throws Exception {

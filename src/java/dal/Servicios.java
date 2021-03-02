@@ -78,4 +78,14 @@ public class Servicios {
         InformacionDal info = new InformacionDal();
         info.EditarProducto(idProducto, stock);
     }
+    
+    public static int ObtenerConsecutivo() throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.ObtenerConsecutivo();
+    }
+    
+    public static void AumentarConsecutivo() throws Exception {
+        InformacionDal info = new InformacionDal();
+        info.AumentarConsecutivo();
+    }
 }
