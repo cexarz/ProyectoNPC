@@ -5,10 +5,22 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-   
+
+
     <ui:define name="content">
-      
+        <br></br>   
+        <br></br>   
+        <br></br>   
+        <br></br>   
+        <br></br>   
+        <br></br>   
+        <br></br>   
+        <div class="card">
+            <p:contentFlow value="#{imagesView.images}" var="image">
+                <p:graphicImage name="demo/images/nature/#{image}" styleClass="content"/>
+                <div class="caption">#{image}</div>
+            </p:contentFlow>
+        </div>
     </ui:define>
-  
 
 </ui:composition>

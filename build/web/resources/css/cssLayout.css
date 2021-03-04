@@ -35,6 +35,7 @@ label{
 .oculto{
      overflow: hidden;
 }
+
 .ui-dataview-header ui-widget-header ui-helper-clearfix ui-corner-top{
     visibility: hidden;
 }
