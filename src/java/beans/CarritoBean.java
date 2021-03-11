@@ -146,7 +146,7 @@ public class CarritoBean {
             Crearcorreo cc = new Crearcorreo();
             String destino = correoCliente;
             String copia = "";
-            String asunto = "Factura de Compra";
+            String asunto = "Pedido de Compra";
             String mensaje = " ";
 
             String[] parametros = new String[1];
