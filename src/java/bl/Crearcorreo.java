@@ -72,6 +72,7 @@ public class Crearcorreo {
                 + "Usted ha realizado un pedido de los siguientes productos:" + "<br><br>"
                 + items + "<br>"
                 + "<b>Total de la compra: "+ precioTotal + "</b>" + "<br><br>"
+                + "En la imagen adjunta nuestras cuentas para transferencias" + "<br><br>"
                 + "Por favor no responda este correo.");
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
