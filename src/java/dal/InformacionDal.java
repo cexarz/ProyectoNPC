@@ -251,7 +251,7 @@ public class InformacionDal {
         cs.setInt(2, stock);
         cs.execute();
     }
-    
+
     public int ObtenerConsecutivo() throws Exception {
         int cantidad = 0;
         try {
@@ -270,12 +270,25 @@ public class InformacionDal {
         }
         return cantidad;
     }
-    
+
     public void AumentarConsecutivo() throws Exception {
         Connection cnx = csw.ObtenerConexion();
         CallableStatement cs = null;
         cs = cnx.prepareCall("{ call AumentarConsecutivo }");
         cs.execute();
     }
-    
+
+    public void ActualizarProducto(Producto producto) throws Exception {
+        Connection cnx = csw.ObtenerConexion();
+        CallableStatement cs = null;
+        cs = cnx.prepareCall("{ call ActualizarProducto (?,?,?,?,?,?,?) }");
+        cs.setInt(1, producto.getId_Producto());
+        cs.setString(2, producto.getCodigo());
+        cs.setString(3, producto.getNombre());
+        cs.setInt(4, producto.getId_Categoria());
+        cs.setInt(5, producto.getStock());
+        cs.setString(6, producto.getDescripcion());
+        cs.setFloat(7, producto.getPrecio());
+        cs.execute();
+    }
 }
