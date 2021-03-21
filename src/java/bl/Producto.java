@@ -9,6 +9,7 @@ public class Producto {
     private String codigo;
     private String nombre;
     private int id_Categoria;
+    private String categoria;
     private int stock;
     private String descripcion;
     private float precio;
@@ -85,6 +86,14 @@ public class Producto {
 
     public void setCantidadCarrito(int cantidadCarrito) {
         this.cantidadCarrito = cantidadCarrito;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
     
     

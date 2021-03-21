@@ -7,6 +7,7 @@ package dal;
 
 import bl.Producto;
 import java.sql.Connection;
+import java.sql.SQLException;
 import static java.util.Collections.list;
 import java.util.List;
 
@@ -87,5 +88,20 @@ public class Servicios {
     public static void AumentarConsecutivo() throws Exception {
         InformacionDal info = new InformacionDal();
         info.AumentarConsecutivo();
+    }
+    
+    public static Producto ObtenerDetalleProducto(int idProducto) throws Exception {
+        InformacionDal info = new InformacionDal();
+        return info.ObtenerDetalleProducto(idProducto);
+    }
+    
+    public static void EliminarProducto(int idProducto) throws SQLException{
+        InformacionDal info = new InformacionDal();
+        info.EliminarProducto(idProducto);
+    }
+    
+    public static void ActualizarProducto(int idProducto, String codigo, String nombre, int idCategoria, int stock, String descripcion, float precio) throws Exception{
+        InformacionDal info = new InformacionDal();
+        info.ActualizarProducto(idProducto, codigo, nombre, idCategoria, stock, descripcion, precio);
     }
 }

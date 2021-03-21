@@ -4,6 +4,7 @@ import bl.Producto;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,7 +111,6 @@ public class InformacionDal {
     }
 
     public List<Producto> retornaProductos() throws Exception {
-
         List<Producto> listaProductos = new ArrayList();
         try {
             CallableStatement cs = null;
@@ -119,9 +119,13 @@ public class InformacionDal {
             ResultSet rs = cs.executeQuery();
             while (rs.next()) {
                 Producto producto = new Producto();
-                producto.setNombre(rs.getString(1));
-                producto.setDescripcion(rs.getString(2));
-                producto.setPrecio(rs.getFloat(3));
+                producto.setId_Producto(rs.getInt(1));
+                producto.setCodigo(rs.getString(2));
+                producto.setNombre(rs.getString(3));
+                producto.setCategoria(rs.getString(4));
+                producto.setStock(rs.getInt(5));
+                producto.setDescripcion(rs.getString(6));
+                producto.setPrecio(rs.getFloat(7));
 
                 listaProductos.add(producto);
             }
@@ -145,12 +149,13 @@ public class InformacionDal {
             while (rs.next()) {
                 Producto producto = new Producto();
                 producto.setId_Producto(rs.getInt(1));
-                producto.setNombre(rs.getString(2));
-                producto.setPrecio(rs.getFloat(3));
-                producto.setDescripcion(rs.getString(4));
-                producto.setPrecio(rs.getFloat(5));
-                producto.setImagen(rs.getString(6));
-                producto.setStock(rs.getInt(7));
+                producto.setCodigo(rs.getString(2));
+                producto.setNombre(rs.getString(3));
+                producto.setPrecio(rs.getFloat(4));
+                producto.setDescripcion(rs.getString(5));
+                producto.setPrecio(rs.getFloat(6));
+                producto.setImagen(rs.getString(7));
+                producto.setStock(rs.getInt(8));
                 listaS.add(producto);
             }
 
@@ -278,17 +283,51 @@ public class InformacionDal {
         cs.execute();
     }
 
-    public void ActualizarProducto(Producto producto) throws Exception {
+    public void ActualizarProducto(int idProducto, String codigo, String nombre, int idCategoria, int stock, String descripcion, float precio) throws Exception {
         Connection cnx = csw.ObtenerConexion();
         CallableStatement cs = null;
         cs = cnx.prepareCall("{ call ActualizarProducto (?,?,?,?,?,?,?) }");
-        cs.setInt(1, producto.getId_Producto());
-        cs.setString(2, producto.getCodigo());
-        cs.setString(3, producto.getNombre());
-        cs.setInt(4, producto.getId_Categoria());
-        cs.setInt(5, producto.getStock());
-        cs.setString(6, producto.getDescripcion());
-        cs.setFloat(7, producto.getPrecio());
+        cs.setInt(1, idProducto);
+        cs.setString(2, codigo);
+        cs.setString(3, nombre);
+        cs.setInt(4, idCategoria);
+        cs.setInt(5, stock);
+        cs.setString(6, descripcion);
+        cs.setFloat(7, precio);
         cs.execute();
     }
+    
+    public Producto ObtenerDetalleProducto(int idProducto) throws Exception {
+        Producto producto = new Producto();
+        try {
+            CallableStatement cs = null;
+            Connection cnx = csw.ObtenerConexion();
+            cs = cnx.prepareCall("{ call ObtenerDetalleProducto (?)) }");
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()) {
+                producto.setCodigo(rs.getString(1));
+                producto.setNombre(rs.getString(2));
+                producto.setId_Categoria(rs.getInt(3));
+                producto.setCategoria(rs.getString(4));
+                producto.setStock(rs.getInt(5));
+                producto.setDescripcion(rs.getString(6));
+                producto.setPrecio(rs.getFloat(7));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            csw.CerrarConexion();
+        }
+        return producto;
+    }
+    
+    public void EliminarProducto(int idProducto) throws SQLException{
+        Connection cnx = csw.ObtenerConexion();
+        CallableStatement cs = null;
+        cs = cnx.prepareCall("{ call EliminarProducto (?) }");
+        cs.setInt(1, idProducto);
+        cs.execute();
+    }
+    
+    
 }
