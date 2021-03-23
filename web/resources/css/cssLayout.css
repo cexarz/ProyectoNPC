@@ -32,6 +32,34 @@ label{
   font-size: 29px;
 }
 
+.acercaD {
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-20%, -50%);
+  font-size: 29px;
+}
+.acercaD2 {
+  margin: 0;
+  position: relative;
+  top: 70%;
+  left: 40%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-20%, -50%);
+  font-size: 16px;
+}
+.acerca {
+  margin: 0;
+  position: absolute;
+  top: 70%;
+  left: 40%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-20%, -50%);
+  font-size: 29px;
+}
+
 .oculto{
      overflow: hidden;
 }
