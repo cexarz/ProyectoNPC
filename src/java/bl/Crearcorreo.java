@@ -57,7 +57,7 @@ public class Crearcorreo {
         return detalle;
     }
 
-    private String DetalleCorreoCompraUsuario(String[] parametros, List<Producto> listaCarrito, float precioTotal) throws Exception {
+    private String DetalleCorreoCompraUsuario(String[] parametros, List<Producto> listaCarrito, float precioTotal, String ordenCompra) throws Exception {
         String detalle = "";
         String items = "<html><body>\n<table style='border:2px solid black'>\n"+
                 "\n<tr><th>Producto</th>\n<th>Cantidad</th>\n<th>Precio por Unidad</th>\n</tr>";
@@ -72,32 +72,42 @@ public class Crearcorreo {
                 + "Usted ha realizado un pedido de los siguientes productos:" + "<br><br>"
                 + items + "<br>"
                 + "<b>Total de la compra: "+ precioTotal + "</b>" + "<br><br>"
+                + "<b>Su orden de compra es: "+ ordenCompra + "</b>" + "<br><br>"
                 + "En la imagen adjunta nuestras cuentas para transferencias" + "<br><br>"
                 + "Por favor no responda este correo.");
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
 
-    private String DetalleCorreoCompraNpc(String[] parametros) throws Exception {
+    private String DetalleCorreoCompraNpc(String[] parametros, List<Producto> listaCarrito, float precioTotal, String ordenCompra) throws Exception {
         String detalle = "";
-
-        String asunto = new String("El cliente " + parametros[0] + "<br>"
-                + "con el correo: " + parametros[1] + "<br><br>"
-                + "ha realizado un pedido de los siguientes productos:" + "<br><br>"
-        );
+        String items = "<html><body>\n<table style='border:2px solid black'>\n"+
+                "\n<tr><th>Producto</th>\n<th>Cantidad</th>\n<th>Precio por Unidad</th>\n</tr>";
+        for (int i = 0; i < listaCarrito.size(); i++) {
+            Producto producto = listaCarrito.get(i);
+            items += "<tr>\n<th>" + producto.getNombre() + "</th>\n<th>" +
+                    producto.getCodigo()+ "</th>\n<th>" + producto.getCantidadCarrito()+ "</th>\n<th>" + producto.getPrecio() + "</th>\n</tr>";
+        }
+        items += "</table></body></html>";
+        String asunto = new String("El cliente " + parametros[0] + "<br><br>"
+                + "con el correo:" + parametros[1] + "<br><br>"
+                + "Ha realizado un pedido de los siguientes productos:" + "<br><br>"
+                + items + "<br>"
+                + "<b>Total de la compra: "+ precioTotal + "</b>" + "<br><br>"
+                + "<b>Orden de compra asignada: "+ ordenCompra + "</b>" + "<br><br>");
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
 
-    public boolean CorreoCompraUsuario(String destino, String copia, String asunto, String[] parametros, List<Producto> listaCarrito, float precioTotal) throws Exception {
+    public boolean CorreoCompraUsuario(String destino, String copia, String asunto, String[] parametros, List<Producto> listaCarrito, float precioTotal, String ordenCompra) throws Exception {
         boolean r = true;
-        r = mail.sendPagoUsuario(destino, copia, asunto, DetalleCorreoCompraUsuario(parametros, listaCarrito, precioTotal));
+        r = mail.sendPagoUsuario(destino, copia, asunto, DetalleCorreoCompraUsuario(parametros, listaCarrito, precioTotal, ordenCompra));
         return r;
     }
 
-    public boolean CorreoCompraNpc(String destino, String copia, String asunto, String[] parametros) throws Exception {
+    public boolean CorreoCompraNpc(String destino, String copia, String asunto, String[] parametros, List<Producto> listaCarrito, float precioTotal, String ordenCompra) throws Exception {
         boolean r = true;
-        r = mail.send(destino, copia, asunto, DetalleCorreoCompraNpc(parametros));
+        r = mail.send(destino, copia, asunto, DetalleCorreoCompraNpc(parametros, listaCarrito, precioTotal, ordenCompra));
         return r;
     }
 

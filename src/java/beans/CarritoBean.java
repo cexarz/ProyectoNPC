@@ -35,6 +35,7 @@ public class CarritoBean {
 
     private String nombreCliente = "";
     private String correoCliente = "";
+    String ordenCompra = "";
 
     public CarritoBean() throws Exception {
 
@@ -108,9 +109,10 @@ public class CarritoBean {
     }
 
     public void procederCompra() throws IOException, Exception {
-        enviarCorreoUsuario();
-        enviarCorreoNpc();
+        ordenCompra= "";
         agregarOrden();
+        enviarCorreoUsuario();
+        enviarCorreoNpc();     
         FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
     }
 
@@ -118,7 +120,7 @@ public class CarritoBean {
     public void agregarOrden() throws Exception {
         
         int consecutivo = Servicios.ObtenerConsecutivo();
-        String ordenCompra = "Orden#" + consecutivo;
+        ordenCompra = "Orden#" + consecutivo;
         for (int i = 0; i < listaCarrito.size(); i++) {
             Servicios.AgregarCarrito(ordenCompra, listaCarrito.get(i).getId_Producto(), listaCarrito.get(i).getCantidadCarrito(), precioTotal, nombreCliente);
         }
@@ -127,20 +129,6 @@ public class CarritoBean {
         precioTotal = 0;
     }
 
-    /*public String generarConsecutivoOrden() throws Exception {
-     String consecutivo = "";
-     Calendar cal = Calendar.getInstance();
-     int year = cal.get(Calendar.YEAR);
-     if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 1) {
-     consecutivo = "C-AM-" + "00" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
-     } else if (String.valueOf(Servicios.TomarUltimoConsecutivoConsulta() + 1).length() == 2) {
-     consecutivo = "C-AM-" + "0" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
-     } else {
-     consecutivo = "C-AM-" + (Servicios.TomarUltimoConsecutivoConsulta() + 1) + "-" + year;
-     }
-
-     return consecutivo;
-     }*/
     public void enviarCorreoUsuario() {
         try {
             Crearcorreo cc = new Crearcorreo();
@@ -151,7 +139,7 @@ public class CarritoBean {
 
             String[] parametros = new String[1];
             parametros[0] = nombreCliente;
-            boolean resp = cc.CorreoCompraUsuario(destino, copia, asunto, parametros, listaCarrito, precioTotal);
+            boolean resp = cc.CorreoCompraUsuario(destino, copia, asunto, parametros, listaCarrito, precioTotal, ordenCompra);
             if (resp == true) {
                 System.out.println("Correo enviado con éxito");
             } else {
@@ -168,13 +156,13 @@ public class CarritoBean {
             Crearcorreo cc = new Crearcorreo();
             String destino = "npcprueba@gmail.com";
             String copia = "";
-            String asunto = "Nueva Compra";
+            String asunto = "Nueva Compra " + ordenCompra;
             String mensaje = " ";
 
             String[] parametros = new String[2];
             parametros[0] = nombreCliente;
             parametros[1] = correoCliente;
-            boolean resp = cc.CorreoCompraNpc(destino, copia, asunto, parametros);
+            boolean resp = cc.CorreoCompraNpc(destino, copia, asunto, parametros, listaCarrito, precioTotal, ordenCompra);
             if (resp == true) {
                 System.out.println("Correo enviado con éxito");
             } else {
@@ -240,6 +228,14 @@ public class CarritoBean {
 
     public void setCorreoCliente(String correoCliente) {
         this.correoCliente = correoCliente;
+    }
+
+    public String getOrdenCompra() {
+        return ordenCompra;
+    }
+
+    public void setOrdenCompra(String ordenCompra) {
+        this.ordenCompra = ordenCompra;
     }
 
 }
