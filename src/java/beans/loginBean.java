@@ -27,7 +27,7 @@ public class loginBean {
 
         if (inputUser.equals(user) && inputPassword.equals(password)) {
             FacesContext.getCurrentInstance().getExternalContext().redirect("indexAdministrador.xhtml");
-        } else {
+        } else {inputUser = inputPassword = "";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuario o contraseña inválida", ""));
         }
 
