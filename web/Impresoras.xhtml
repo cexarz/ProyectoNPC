@@ -46,16 +46,13 @@
                 <p:outputPanel id="DetalleProducto" style="text-align:center;">
                     <p:panelGrid  columns="2" rendered="#{not empty VistaProductosB.productoSeleccionado}" style="width:100%; text-align: center">
 
-                        <h:outputLabel value="Id:" />
-                        <h:outputText value="#{VistaProductosB.productoSeleccionado.id_Producto}" />
-
-                        <h:outputLabel value="Nombre:" />
+                        <h:outputLabel value="Nombre:" style="color: black"/>
                         <h:outputText value="#{VistaProductosB.productoSeleccionado.nombre}" />
 
-                        <h:outputLabel value="Descripción:" />
+                        <h:outputLabel value="Descripción:" style="color: black" />
                         <h:outputText value="#{VistaProductosB.productoSeleccionado.descripcion}"/>
 
-                        <h:outputLabel value="Precio" />
+                        <h:outputLabel value="Precio" style="color: black"/>
                         <h:outputText value="₡#{VistaProductosB.productoSeleccionado.precio}" />
                     </p:panelGrid>
                 </p:outputPanel>
