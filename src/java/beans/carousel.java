@@ -6,10 +6,12 @@
 
 package beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -18,17 +20,17 @@ import javax.inject.Named;
  */
 
 
-@Named
+@Named(value = "carousel")
 @RequestScoped
-public class carousel {
+public class carousel implements Serializable {
 
     private List<String> images;
 
     @PostConstruct
     public void init() {
         images = new ArrayList<String>();
-        for (int i = 1; i <= 12; i++) {
-            images.add("nature" + i + ".jpg");
+        for (int i = 1; i <= 9; i++) {
+            images.add("image" + i + ".jpg");
         }
     }
 

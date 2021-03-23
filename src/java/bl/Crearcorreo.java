@@ -83,7 +83,8 @@ public class Crearcorreo {
 
         String asunto = new String("El cliente " + parametros[0] + "<br>"
                 + "con el correo: " + parametros[1] + "<br><br>"
-                + "ha realizado un pedido de los siguientes productos:" + "<br><br>");
+                + "ha realizado un pedido de los siguientes productos:" + "<br><br>"
+        );
         detalle = formatocorreo(OrtografiaDetalle(asunto));
         return detalle;
     }
